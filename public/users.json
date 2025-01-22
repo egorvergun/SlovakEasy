@@ -1,0 +1,189 @@
+[
+  {
+    "email": "vergunegor@gmail.com",
+    "password": "$2b$10$egxDycdrYXj04GlP0euc6OQdWrJNNLO3AU15pdnlMYJ0WWnl6VE9S",
+    "role": "teacher",
+    "students": [
+      "verhunenot@gmail.com"
+    ],
+    "completedTopics": [],
+    "results": [
+      {
+        "date": "2024-12-22T01:52:09.670Z",
+        "time": "00:00:49",
+        "imagesCompleted": 10,
+        "correctAnswers": 8,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T01:52:09.680Z",
+        "time": "00:00:49",
+        "imagesCompleted": 10,
+        "correctAnswers": 8,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T01:52:34.218Z",
+        "time": "00:00:10",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T01:52:34.232Z",
+        "time": "00:00:10",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T02:05:46.179Z",
+        "time": "00:00:26",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T02:05:46.195Z",
+        "time": "00:00:26",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T02:29:37.966Z",
+        "time": "00:00:32",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T02:29:37.991Z",
+        "time": "00:00:32",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-09T01:34:46.925Z",
+        "time": "00:01:50",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-09T01:34:46.930Z",
+        "time": "00:01:50",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-09T17:40:57.952Z",
+        "time": "00:01:50",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-13T03:22:01.313Z",
+        "time": "00:00:57",
+        "imagesCompleted": 10,
+        "correctAnswers": 5,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-13T03:22:01.318Z",
+        "time": "00:00:57",
+        "imagesCompleted": 10,
+        "correctAnswers": 5,
+        "topicIndex": 0,
+        "correctImages": []
+      }
+    ]
+  },
+  {
+    "email": "verhunenot@gmail.com",
+    "password": "$2b$10$egxDycdrYXj04GlP0euc6OQdWrJNNLO3AU15pdnlMYJ0WWnl6VE9S",
+    "role": "student",
+    "completedTopics": [],
+    "results": [
+      {
+        "date": "2024-12-22T01:52:09.670Z",
+        "time": "00:00:49",
+        "imagesCompleted": 10,
+        "correctAnswers": 8,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T01:52:09.680Z",
+        "time": "00:00:49",
+        "imagesCompleted": 10,
+        "correctAnswers": 8,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T01:52:34.218Z",
+        "time": "00:00:10",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T01:52:34.232Z",
+        "time": "00:00:10",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T02:05:46.179Z",
+        "time": "00:00:26",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T02:05:46.195Z",
+        "time": "00:00:26",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T02:29:37.966Z",
+        "time": "00:00:32",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2024-12-22T02:29:37.991Z",
+        "time": "00:00:32",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      }
+    ]
+  }
+]

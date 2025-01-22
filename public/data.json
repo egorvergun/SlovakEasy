@@ -1,0 +1,334 @@
+{
+  "topics": [
+    {
+      "title": "Živočíchy",
+      "images": [
+        {
+          "src": "cat.jpg",
+          "sk": "mačka",
+          "uk": "кот"
+        },
+        {
+          "src": "dog.jpg",
+          "sk": "pes",
+          "uk": "пёсиль"
+        },
+        {
+          "src": "bird.jpg",
+          "sk": "vták",
+          "uk": "птах"
+        },
+        {
+          "src": "fish.jpg",
+          "sk": "ryba",
+          "uk": "риба"
+        },
+        {
+          "src": "lion.jpg",
+          "sk": "lev",
+          "uk": "лев"
+        },
+        {
+          "src": "tiger.jpg",
+          "sk": "tiger",
+          "uk": "тигр"
+        },
+        {
+          "src": "elephant.jpg",
+          "sk": "slon",
+          "uk": "слон"
+        },
+        {
+          "src": "monkey.jpg",
+          "sk": "opica",
+          "uk": "мавпа"
+        },
+        {
+          "src": "rabbit.jpg",
+          "sk": "zajac",
+          "uk": "заяць"
+        },
+        {
+          "src": "bear.jpg",
+          "sk": "medveď",
+          "uk": "ведмідь"
+        }
+      ]
+    },
+    {
+      "title": "Doprava",
+      "images": [
+        {
+          "src": "car.jpg",
+          "sk": "auto",
+          "uk": "автомобіль"
+        },
+        {
+          "src": "bus.jpg",
+          "sk": "autobus",
+          "uk": "автобус"
+        },
+        {
+          "src": "bicycle.jpg",
+          "sk": "bicykel",
+          "uk": "велосипед"
+        },
+        {
+          "src": "train.jpg",
+          "sk": "vlak",
+          "uk": "поїзд"
+        },
+        {
+          "src": "plane.jpg",
+          "sk": "lietadlo",
+          "uk": "літак"
+        },
+        {
+          "src": "boat.jpg",
+          "sk": "loď",
+          "uk": "човен"
+        },
+        {
+          "src": "motorcycle.jpg",
+          "sk": "motorka",
+          "uk": "мотоцикл"
+        },
+        {
+          "src": "truck.jpg",
+          "sk": "nákladné auto",
+          "uk": "вантажівка"
+        },
+        {
+          "src": "tram.jpg",
+          "sk": "električka",
+          "uk": "трамвай"
+        },
+        {
+          "src": "subway.jpg",
+          "sk": "metro",
+          "uk": "метро"
+        }
+      ]
+    },
+    {
+      "title": "Ovocie",
+      "images": [
+        {
+          "src": "apple.jpg",
+          "sk": "jablko",
+          "uk": "яблуко"
+        },
+        {
+          "src": "banana.jpg",
+          "sk": "banán",
+          "uk": "банан"
+        },
+        {
+          "src": "cherry.jpg",
+          "sk": "čerešňa",
+          "uk": "вишня"
+        },
+        {
+          "src": "grape.jpg",
+          "sk": "hrozno",
+          "uk": "виноград"
+        },
+        {
+          "src": "lemon.jpg",
+          "sk": "citrón",
+          "uk": "лимон"
+        },
+        {
+          "src": "orange.jpg",
+          "sk": "pomaranč",
+          "uk": "апельсин"
+        },
+        {
+          "src": "peach.jpg",
+          "sk": "broskyňa",
+          "uk": "персик"
+        },
+        {
+          "src": "pear.jpg",
+          "sk": "hruška",
+          "uk": "груша"
+        },
+        {
+          "src": "pineapple.jpg",
+          "sk": "ananás",
+          "uk": "ананас"
+        },
+        {
+          "src": "watermelon.jpg",
+          "sk": "melón",
+          "uk": "кавун"
+        }
+      ]
+    },
+    {
+      "title": "Zelenina",
+      "images": [
+        {
+          "src": "carrot.jpg",
+          "sk": "mrkva",
+          "uk": "морква"
+        },
+        {
+          "src": "tomato.jpg",
+          "sk": "paradajka",
+          "uk": "помідор"
+        },
+        {
+          "src": "cucumber.jpg",
+          "sk": "uhorka",
+          "uk": "огірок"
+        },
+        {
+          "src": "potato.jpg",
+          "sk": "zemiak",
+          "uk": "картопля"
+        },
+        {
+          "src": "pepper.jpg",
+          "sk": "paprika",
+          "uk": "перець"
+        },
+        {
+          "src": "onion.jpg",
+          "sk": "cibuľa",
+          "uk": "цибуля"
+        },
+        {
+          "src": "garlic.jpg",
+          "sk": "cesnak",
+          "uk": "часник"
+        },
+        {
+          "src": "broccoli.jpg",
+          "sk": "brokolica",
+          "uk": "броколі"
+        },
+        {
+          "src": "cabbage.jpg",
+          "sk": "kapusta",
+          "uk": "капуста"
+        },
+        {
+          "src": "pumpkin.jpg",
+          "sk": "tekvica",
+          "uk": "гарбуз"
+        }
+      ]
+    },
+    {
+      "title": "Nástroje",
+      "images": [
+        {
+          "src": "hammer.jpg",
+          "sk": "kladivo",
+          "uk": "молоток"
+        },
+        {
+          "src": "screwdriver.jpg",
+          "sk": "skrutkovač",
+          "uk": "викрутка"
+        },
+        {
+          "src": "wrench.jpg",
+          "sk": "kľúč",
+          "uk": "гайковий ключ"
+        },
+        {
+          "src": "pliers.jpg",
+          "sk": "kliešte",
+          "uk": "плоскогубці"
+        },
+        {
+          "src": "saw.jpg",
+          "sk": "píla",
+          "uk": "пила"
+        },
+        {
+          "src": "drill.jpg",
+          "sk": "vŕtačka",
+          "uk": "дриль"
+        },
+        {
+          "src": "tape_measure.jpg",
+          "sk": "meracia páska",
+          "uk": "рулетка"
+        },
+        {
+          "src": "level.jpg",
+          "sk": "vodováha",
+          "uk": "рівень"
+        },
+        {
+          "src": "chisel.jpg",
+          "sk": "dlatko",
+          "uk": "долото"
+        },
+        {
+          "src": "axe.jpg",
+          "sk": "sekera",
+          "uk": "сокира"
+        }
+      ]
+    },
+    {
+      "title": "Barbariki",
+      "images": [
+        {
+          "src": "uploads/Barbariki_block1.png",
+          "sk": "Barbariki",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block2.png",
+          "sk": "Pidor",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block3.png",
+          "sk": "Loh",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block4.png",
+          "sk": "Uebak",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block5.png",
+          "sk": "Barbariki",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block6.png",
+          "sk": "Sosi",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block7.png",
+          "sk": "Karp",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block8.png",
+          "sk": "Meme",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block9.png",
+          "sk": "Sosat",
+          "uk": "барбарики"
+        },
+        {
+          "src": "uploads/Barbariki_block10.png",
+          "sk": "Hui",
+          "uk": "барбарики"
+        }
+      ]
+    }
+  ]
+}
