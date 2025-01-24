@@ -15,11 +15,10 @@ export async function GET(req) {
   }
 
   const token = authHeader.split(' ')[1];
-  const jwtSecret = process.env.JWT_SECRET || 'your-secure-secret-key';
+  const jwtSecret = process.env.JWT_SECRET;
 
   try {
     const decoded = jwt.verify(token, jwtSecret);
-    console.log('Декодированный токен:', decoded);
 
     if (decoded.role !== 'teacher') {
       console.log('Пользователь не является учителем. Возвращаю 403.');

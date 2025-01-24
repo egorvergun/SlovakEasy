@@ -30,7 +30,7 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        setUser({ email, role: data.role });
+        setUser({ email: data.email, role: data.role, token: data.token });
         if (callbackUrl.includes('/result')) {
           router.push(callbackUrl);
         } else {
@@ -42,14 +42,14 @@ export default function LoginPage() {
         setError(data.message);
       }
     } catch (error) {
-      console.error('Chyba pri prihlásení:', error);
-      setError('Prihlásenie nebolo úspešné.');
+      console.error('Ошибка при входе:', error);
+      setError('Вход не был успешным.');
     }
   };
 
   return (
     <div>
-      <h2>Prihlásenie</h2>
+      <h2>Вход</h2>
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>
@@ -61,7 +61,7 @@ export default function LoginPage() {
           />
         </div>
         <div>
-          <label>Heslo:</label>
+          <label>Пароль:</label>
           <input 
             type="password" 
             value={password}
@@ -70,7 +70,7 @@ export default function LoginPage() {
           />
         </div>
         {error && <p style={{color: 'red'}}>{error}</p>}
-        <button type="submit">Prihlásiť</button>
+        <button type="submit">Войти</button>
       </form>
     </div>
   );

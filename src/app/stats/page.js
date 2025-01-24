@@ -13,35 +13,36 @@ export default function TeacherStatsPage() {
 
   useEffect(() => {
     if (!user || user.role !== 'teacher') {
-      console.log('Пользователь не авторизован или не является учителем. Перенаправление...');
+      console.log('User not authorized or not a teacher. Redirecting...');
       router.push('/topics');
       return;
     }
-
+  
     const fetchStats = async () => {
+      console.log('JWT_SECRET:', process.env.JWT_SECRET);
       try {
-        console.log('Отправка запроса к API с токеном:', user.token);
+        console.log('Sending request to API with token:', user.token);
         const response = await fetch('/api/teacher-stats', {
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
         });
-
-        console.log('Статус ответа от API:', response.status);
+  
+        console.log('API Response Status:', response.status);
         const data = await response.json();
-        console.log('Данные, полученные от API:', data);
-
+        console.log('API Response Data:', data);
+  
         if (response.ok) {
           setStats(data.studentStats);
         } else {
           setError(data.message || 'Ошибка при получении статистики.');
         }
       } catch (err) {
-        console.error('Ошибка при запросе к API:', err);
+        console.error('API Request Error:', err);
         setError('Ошибка при получении статистики.');
       }
     };
-
+  
     fetchStats();
   }, [user, router]);
 

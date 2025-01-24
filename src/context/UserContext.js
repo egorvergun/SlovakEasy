@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
     if (token) {
       const decodedToken = parseJwt(token);
       if (decodedToken && decodedToken.exp * 1000 > Date.now()) { // Проверяем срок действия токена
-        setUser({ email: decodedToken.email, role: decodedToken.role, token });
+        setUser({ email: decodedToken.email, role: decodedToken.role, token: token });
       } else {
         localStorage.removeItem('token');
         setUser(null);
@@ -25,6 +25,9 @@ export const UserProvider = ({ children }) => {
   const parseJwt = (token) => {
     try {
       const base64Url = token.split('.')[1];
+      if (!base64Url) {
+        throw new Error('Некорректный формат токена');
+      }
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(
         atob(base64)
@@ -34,9 +37,9 @@ export const UserProvider = ({ children }) => {
           })
           .join('')
       );
-
       return JSON.parse(jsonPayload);
     } catch (e) {
+      console.error('Не удалось декодировать JWT:', e);
       return null;
     }
   };

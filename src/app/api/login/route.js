@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export async function POST(request) {
   const { email, password } = await request.json();
@@ -16,37 +17,38 @@ export async function POST(request) {
       users = JSON.parse(usersData);
     }
 
-    // Hľadanie používateľa
     const user = users.find(
       (user) => user.email.toLowerCase() === email.toLowerCase()
     );
     if (!user) {
       return new Response(
-        JSON.stringify({ message: 'Používateľ nenájdený.' }),
+        JSON.stringify({ message: 'Пользователь не найден.' }),
         { status: 404, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // Overenie hesla
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
       return new Response(
-        JSON.stringify({ message: 'Nesprávne heslo.' }),
+        JSON.stringify({ message: 'Неверный пароль.' }),
         { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // Tu môžete pridať JWT token alebo iné autentifikačné mechanizmy
+    const token = jwt.sign(
+      { email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
 
-    // Vrátenie emailu a role
     return new Response(
-      JSON.stringify({ email: user.email, role: user.role }),
+      JSON.stringify({ email: user.email, role: user.role, token }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.error('Chyba pri prihlasovaní používateľa:', error);
+    console.error('Ошибка при аутентификации пользователя:', error);
     return new Response(
-      JSON.stringify({ message: 'Interná chyba servera.' }),
+      JSON.stringify({ message: 'Внутренняя ошибка сервера.' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
