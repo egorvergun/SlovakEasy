@@ -3,6 +3,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { useRouter } from 'next/navigation';
+import { FaFilter } from 'react-icons/fa';
 import '../globals.css';
 
 export default function TeacherStatsPage() {
@@ -10,60 +11,86 @@ export default function TeacherStatsPage() {
   const router = useRouter();
   const [stats, setStats] = useState([]);
   const [error, setError] = useState('');
+  const [topics, setTopics] = useState([]);
+  const [selectedTopic, setSelectedTopic] = useState('Все');
+  const [topicNames, setTopicNames] = useState([]);
 
   useEffect(() => {
     if (!user || user.role !== 'teacher') {
-      console.log('User not authorized or not a teacher. Redirecting...');
       router.push('/topics');
       return;
     }
-  
-    const fetchStats = async () => {
-      console.log('JWT_SECRET:', process.env.JWT_SECRET);
+
+    const fetchData = async () => {
       try {
-        console.log('Sending request to API with token:', user.token);
-        const response = await fetch('/api/teacher-stats', {
+        // Загрузка data.json
+        const dataResponse = await fetch('/data.json');
+        const data = await dataResponse.json();
+        setTopicNames(data.topics.map(topic => topic.title));
+
+        // Загрузка статистики студентов
+        const statsResponse = await fetch('/api/teacher-stats', {
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
         });
-  
-        console.log('API Response Status:', response.status);
-        const data = await response.json();
-        console.log('API Response Data:', data);
-  
-        if (response.ok) {
-          setStats(data.studentStats);
+
+        const statsData = await statsResponse.json();
+
+        if (statsResponse.ok) {
+          setStats(statsData.studentStats);
+          extractTopics(statsData.studentStats);
         } else {
-          setError(data.message || 'Ошибка при получении статистики.');
+          setError(statsData.message || 'Ошибка при получении статистики.');
         }
       } catch (err) {
-        console.error('API Request Error:', err);
-        setError('Ошибка при получении статистики.');
+        setError('Ошибка при загрузке данных.');
       }
     };
-  
-    fetchStats();
+
+    fetchData();
   }, [user, router]);
+
+  const extractTopics = (studentStats) => {
+    const allTopics = new Set();
+    studentStats.forEach(stat => {
+      allTopics.add(stat.currentTopic);
+      stat.completedTopics.forEach(topic => allTopics.add(topic));
+    });
+    setTopics(['Все', ...Array.from(allTopics)]);
+  };
+
+  const filteredStats = selectedTopic === 'Все' 
+    ? stats 
+    : stats.filter(stat => 
+        stat.completedTopics.includes(selectedTopic) || stat.currentTopic === selectedTopic
+      );
 
   if (!user || user.role !== 'teacher') {
     return <div>Перенаправление на другую страницу...</div>;
   }
 
   return (
-    <div>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {stats.length > 0 ? (
-        <ul>
-          {stats.map((stat, index) => (
-            <li key={index}>
-              <p>Электронная почта: {stat.email}</p>
-              <p>Пройденные темы: {stat.completedTopics.length > 0 ? stat.completedTopics.join(', ') : 'Нет данных'}</p>
+    <div className="stats-container">
+      <button onClick={() => router.push('/topics')} className="back-button">
+            Vrátiť sa k témam
+          </button>
+      <h1>Статистика студентов</h1>
+      {error && <p className="error">{error}</p>}
+      {filteredStats.length > 0 ? (
+        <ul className="stats-list">
+          {filteredStats.map((stat, index) => (
+            <li key={index} className="stat-item">
+              <h3>{stat.email}</h3>
               <p>Результаты:</p>
               <ul>
                 {stat.results.map((result, idx) => (
                   <li key={idx}>
-                    Дата: {new Date(result.date).toLocaleString()}, Время: {result.time}, Завершено изображений: {result.imagesCompleted}, Правильные ответы: {result.correctAnswers}
+                    Тема: {topicNames[result.topicIndex] || 'Неизвестная тема'}, 
+                    Дата: {new Date(result.date).toLocaleString()}, 
+                    Время: {result.time}, 
+                    Завершено изображений: {result.imagesCompleted}, 
+                    Правильные ответы: {result.correctAnswers}
                   </li>
                 ))}
               </ul>

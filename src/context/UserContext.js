@@ -8,11 +8,10 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // При загрузке приложения проверяем наличие токена в localStorage
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = parseJwt(token);
-      if (decodedToken && decodedToken.exp * 1000 > Date.now()) { // Проверяем срок действия токена
+      if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
         setUser({ email: decodedToken.email, role: decodedToken.role, token: token });
       } else {
         localStorage.removeItem('token');
@@ -21,7 +20,6 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
 
-  // Функция для декодирования JWT токена
   const parseJwt = (token) => {
     try {
       const base64Url = token.split('.')[1];

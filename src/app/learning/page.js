@@ -58,7 +58,6 @@ export default function Learning() {
 
   const saveProgress = (topicTitle, imageSrc) => {
     console.log(`Progres uložený pre tému: ${topicTitle}, obrázok: ${imageSrc}`);
-    // Ďalej: môžete uložiť progres na server alebo do lokálneho úložiska
   };
 
   const nextImage = useCallback(() => {
@@ -271,7 +270,6 @@ export default function Learning() {
     }
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (recognitionRef.current) {
@@ -304,7 +302,6 @@ export default function Learning() {
             <button onClick={() => playSound('uk')}>Ukrajinský</button>
           </div>
           
-          {/* Toggle Recognition Button */}
           <div className="toggle-button-container">
             <button
               onClick={toggleRecognition}

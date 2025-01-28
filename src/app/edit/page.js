@@ -71,6 +71,9 @@ export default function EditPage() {
 
   return (
     <div id="edit-page">
+      <button onClick={() => router.push('/topics')} className="back-button">
+            Vrátiť sa k témam
+          </button>
       <h2>Pridať novú tému</h2>
       <form onSubmit={saveTopic}>
         <div>

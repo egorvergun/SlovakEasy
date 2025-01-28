@@ -12,9 +12,7 @@ export default function TopicSelection() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log("User objekt:", user);
     if (!user) {
-      // Ak používateľ nie je autorizovaný, presmerovať na prihlasovaciu stránku
       router.push('/login');
     } else {
       fetch('/api/topics')

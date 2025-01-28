@@ -1,16 +1,13 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
-import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { NextResponse } from 'next/server';
 
 export async function GET(req) {
   const { headers } = req;
   const authHeader = headers.get('authorization');
 
-  console.log('Получен Authorization заголовок:', authHeader);
-
   if (!authHeader) {
-    console.log('Отсутствует Authorization заголовок. Возвращаю 401.');
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
@@ -21,54 +18,48 @@ export async function GET(req) {
     const decoded = jwt.verify(token, jwtSecret);
 
     if (decoded.role !== 'teacher') {
-      console.log('Пользователь не является учителем. Возвращаю 403.');
-      return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
+      return NextResponse.json({ message: 'Access denied.' }, { status: 403 });
     }
 
     const usersFilePath = path.join(process.cwd(), 'public', 'users.json');
     let usersData;
+
     try {
-      usersData = await fs.readFile(usersFilePath, 'utf8');
-      console.log('Файл users.json успешно прочитан.');
+      usersData = fs.readFileSync(usersFilePath, 'utf8');
     } catch (readError) {
-      console.error('Ошибка чтения файла users.json:', readError);
-      return NextResponse.json({ message: 'Server error.' }, { status: 500 });
+      return NextResponse.json({ message: 'Ошибка чтения файла пользователей.' }, { status: 500 });
     }
 
     let users;
     try {
       users = JSON.parse(usersData);
-      console.log('Файл users.json успешно распарсен.');
     } catch (parseError) {
-      console.error('Ошибка парсинга файла users.json:', parseError);
-      return NextResponse.json({ message: 'Server error.' }, { status: 500 });
+      return NextResponse.json({ message: 'Ошибка парсинга данных пользователей.' }, { status: 500 });
     }
 
     const teacher = users.find(user => user.email === decoded.email);
-    console.log('Найден учитель:', teacher);
 
     if (!teacher || !teacher.students || teacher.students.length === 0) {
-      console.log('У учителя нет студентов. Возвращаю 404.');
-      return NextResponse.json({ message: 'No students found.' }, { status: 404 });
+      return NextResponse.json({ message: 'Студенты не найдены.' }, { status: 404 });
     }
 
     const studentStats = teacher.students.map(studentEmail => {
-      const student = users.find(user => user.email === studentEmail);
-      if (student) {
-        return {
-          email: student.email,
-          completedTopics: student.completedTopics,
-          results: student.results || []
-        };
-      }
-      return null;
-    }).filter(stat => stat !== null);
+      const student = users.find(u => u.email === studentEmail);
+      if (!student) return null;
 
-    console.log('Собранная статистика студентов:', studentStats);
+      // Удаление дублирующихся результатов
+      const uniqueResults = Array.from(new Map(student.results.map(item => [item.date, item])).values());
+
+      return {
+        email: student.email,
+        completedTopics: student.completedTopics || [],
+        results: uniqueResults,
+        currentTopic: student.currentTopic || 'Не указано',
+      };
+    }).filter(stat => stat !== null);
 
     return NextResponse.json({ studentStats }, { status: 200 });
   } catch (error) {
-    console.error('Ошибка аутентификации:', error);
-    return NextResponse.json({ message: 'Invalid token.' }, { status: 403 });
+    return NextResponse.json({ message: 'Invalid token.' }, { status: 401 });
   }
 }
