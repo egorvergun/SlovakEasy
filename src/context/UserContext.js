@@ -1,3 +1,4 @@
+// filepath: /c:/Users/vergu/Desktop/bk_pr/src/context/UserContext.js
 'use client';
 
 import { createContext, useState, useEffect } from 'react';

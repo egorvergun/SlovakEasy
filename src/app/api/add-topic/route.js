@@ -81,7 +81,7 @@ export async function POST(req) {
       console.error('Chyba pri čítaní data.json:', readErr);
       return NextResponse.json({ message: 'Chyba pri čítaní údajov.' }, { status: 500 });
     }
-    // Ak súbor neexistuje, pokračujeme s prázdnymi údajmi
+
   }
 
   // Pridanie novej témy

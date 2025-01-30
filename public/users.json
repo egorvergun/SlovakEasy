@@ -130,5 +130,49 @@
         "correctImages": []
       }
     ]
+  },
+  {
+    "email": "f@gmail.com",
+    "password": "$2a$10$8kMzsNwfHVLkT4khZy9dFOoIe9xtll6z5CZ8yuIwEGjc8aBzGVeNS",
+    "role": "teacher",
+    "completedTopics": [],
+    "students": [
+      "a@gmail.com",
+      "g@gmail.com"
+    ]
+  },
+  {
+    "email": "a@gmail.com",
+    "password": "$2a$10$acMzy87gOu3jHp5ZDRniDexD5W9QSaIGRMhAJX0o6z.ppbx7C4FFe",
+    "role": "student",
+    "completedTopics": [],
+    "teacher": "f@gmail.com",
+    "results": [
+      {
+        "date": "2025-01-30T10:16:41.549Z",
+        "time": "00:00:02",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      }
+    ]
+  },
+  {
+    "email": "g@gmail.com",
+    "password": "$2a$10$mGdt.tS/5zkyL2o7igmZW.e3znEc4VAenzYsyylToSXZkU9crtjn6",
+    "role": "student",
+    "completedTopics": [],
+    "teacher": "f@gmail.com",
+    "results": [
+      {
+        "date": "2025-01-30T11:42:58.704Z",
+        "time": "00:00:14",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      }
+    ]
   }
 ]

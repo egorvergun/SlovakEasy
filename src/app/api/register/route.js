@@ -55,9 +55,9 @@ export async function POST(request) {
     const newUser = {
       email: email.toLowerCase(),
       password: hashedPassword,
-      role: isTeacher ? 'teacher' : 'student',
+      role: null, // Не присваиваем роль сразу
       completedTopics: [],
-    };
+    };    
 
     users.push(newUser);
     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));

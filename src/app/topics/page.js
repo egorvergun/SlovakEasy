@@ -56,7 +56,7 @@ export default function TopicSelection() {
       {user.role === 'teacher' && (
         <div id="teacher-buttons">
           <button onClick={showAddTopicForm}>Pridať novú tému</button>
-          <button onClick={() => router.push('/stats')}>Статистика учеников</button>
+          <button onClick={() => router.push('/stats')}>Štatistika študentov</button>
         </div>
       )}
       {error && <p style={{ color: 'red' }}>{error}</p>}

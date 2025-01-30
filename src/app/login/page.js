@@ -41,14 +41,14 @@ export default function LoginPage() {
         setError(data.message);
       }
     } catch (error) {
-      console.error('Ошибка при входе:', error);
-      setError('Вход не был успешным.');
+      console.error('Chyba pri prihlásení:', error);
+      setError('Prihlásenie nebolo úspešné.');
     }
   };
 
   return (
     <div>
-      <h2>Вход</h2>
+      <h2>Prihlásenie</h2>
       <form onSubmit={handleLogin}>
         <div>
           <label>Email:</label>
@@ -60,7 +60,7 @@ export default function LoginPage() {
           />
         </div>
         <div>
-          <label>Пароль:</label>
+          <label>Heslo:</label>
           <input 
             type="password" 
             value={password}
@@ -69,7 +69,7 @@ export default function LoginPage() {
           />
         </div>
         {error && <p style={{color: 'red'}}>{error}</p>}
-        <button type="submit">Войти</button>
+        <button type="submit">Prihlásiť sa</button>
       </form>
     </div>
   );

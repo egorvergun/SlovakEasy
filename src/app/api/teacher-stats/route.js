@@ -27,34 +27,34 @@ export async function GET(req) {
     try {
       usersData = fs.readFileSync(usersFilePath, 'utf8');
     } catch (readError) {
-      return NextResponse.json({ message: 'Ошибка чтения файла пользователей.' }, { status: 500 });
+      return NextResponse.json({ message: 'Chyba čítania súboru používateľov.' }, { status: 500 });
     }
 
     let users;
     try {
       users = JSON.parse(usersData);
     } catch (parseError) {
-      return NextResponse.json({ message: 'Ошибка парсинга данных пользователей.' }, { status: 500 });
+      return NextResponse.json({ message: 'Chyba parsovania údajov používateľov.' }, { status: 500 });
     }
 
     const teacher = users.find(user => user.email === decoded.email);
 
     if (!teacher || !teacher.students || teacher.students.length === 0) {
-      return NextResponse.json({ message: 'Студенты не найдены.' }, { status: 404 });
+      return NextResponse.json({ message: 'Študenti neboli nájdení.' }, { status: 404 });
     }
 
     const studentStats = teacher.students.map(studentEmail => {
       const student = users.find(u => u.email === studentEmail);
       if (!student) return null;
 
-      // Удаление дублирующихся результатов
+      // Odstraňovanie duplicitných výsledkov
       const uniqueResults = Array.from(new Map(student.results.map(item => [item.date, item])).values());
 
       return {
         email: student.email,
         completedTopics: student.completedTopics || [],
         results: uniqueResults,
-        currentTopic: student.currentTopic || 'Не указано',
+        currentTopic: student.currentTopic || 'Nezadáno',
       };
     }).filter(stat => stat !== null);
 

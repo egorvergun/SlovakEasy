@@ -25,10 +25,8 @@ export default function RegisterPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Nastavenie používateľa v kontexte
-        setUser({ email, role: data.role });
-        // Presmerovanie na stránku výberu tém
-        router.push(data.role === 'teacher' ? '/add-topic' : '/topics');
+        setUser({ email });
+        router.push('/choose-role');
       } else {
         setError(data.message);
       }

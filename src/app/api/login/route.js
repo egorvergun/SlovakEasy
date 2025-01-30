@@ -1,5 +1,3 @@
-// src/app/api/login/route.js
-
 import fs from 'fs';
 import path from 'path';
 import bcrypt from 'bcryptjs';
@@ -22,7 +20,7 @@ export async function POST(request) {
     );
     if (!user) {
       return new Response(
-        JSON.stringify({ message: 'Пользователь не найден.' }),
+        JSON.stringify({ message: 'Používateľ nenájdený.' }),
         { status: 404, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -30,7 +28,7 @@ export async function POST(request) {
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
       return new Response(
-        JSON.stringify({ message: 'Неверный пароль.' }),
+        JSON.stringify({ message: 'Nesprávne heslo.' }),
         { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -46,9 +44,9 @@ export async function POST(request) {
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.error('Ошибка при аутентификации пользователя:', error);
+    console.error('Chyba pri autentifikácii používateľa:', error);
     return new Response(
-      JSON.stringify({ message: 'Внутренняя ошибка сервера.' }),
+      JSON.stringify({ message: 'Vnútorná chyba servera.' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }

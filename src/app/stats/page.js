@@ -12,7 +12,7 @@ export default function TeacherStatsPage() {
   const [stats, setStats] = useState([]);
   const [error, setError] = useState('');
   const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState('Все');
+  const [selectedTopic, setSelectedTopic] = useState('Všetky');
   const [topicNames, setTopicNames] = useState([]);
 
   useEffect(() => {
@@ -23,12 +23,12 @@ export default function TeacherStatsPage() {
 
     const fetchData = async () => {
       try {
-        // Загрузка data.json
+        // Načítanie data.json
         const dataResponse = await fetch('/data.json');
         const data = await dataResponse.json();
         setTopicNames(data.topics.map(topic => topic.title));
 
-        // Загрузка статистики студентов
+        // Načítanie štatistiky študentov
         const statsResponse = await fetch('/api/teacher-stats', {
           headers: {
             'Authorization': `Bearer ${user.token}`
@@ -41,10 +41,10 @@ export default function TeacherStatsPage() {
           setStats(statsData.studentStats);
           extractTopics(statsData.studentStats);
         } else {
-          setError(statsData.message || 'Ошибка при получении статистики.');
+          setError(statsData.message || 'Chyba pri získavaní štatistiky.');
         }
       } catch (err) {
-        setError('Ошибка при загрузке данных.');
+        setError('Chyba pri načítavaní dát.');
       }
     };
 
@@ -57,17 +57,17 @@ export default function TeacherStatsPage() {
       allTopics.add(stat.currentTopic);
       stat.completedTopics.forEach(topic => allTopics.add(topic));
     });
-    setTopics(['Все', ...Array.from(allTopics)]);
+    setTopics(['Všetky', ...Array.from(allTopics)]);
   };
 
-  const filteredStats = selectedTopic === 'Все' 
+  const filteredStats = selectedTopic === 'Všetky' 
     ? stats 
     : stats.filter(stat => 
         stat.completedTopics.includes(selectedTopic) || stat.currentTopic === selectedTopic
       );
 
   if (!user || user.role !== 'teacher') {
-    return <div>Перенаправление на другую страницу...</div>;
+    return <div>Presmerovanie na inú stránku...</div>;
   }
 
   return (
@@ -75,22 +75,22 @@ export default function TeacherStatsPage() {
       <button onClick={() => router.push('/topics')} className="back-button">
             Vrátiť sa k témam
           </button>
-      <h1>Статистика студентов</h1>
+      <h1>Študentská štatistika</h1>
       {error && <p className="error">{error}</p>}
       {filteredStats.length > 0 ? (
         <ul className="stats-list">
           {filteredStats.map((stat, index) => (
             <li key={index} className="stat-item">
               <h3>{stat.email}</h3>
-              <p>Результаты:</p>
+              <p>Výsledky:</p>
               <ul>
                 {stat.results.map((result, idx) => (
                   <li key={idx}>
-                    Тема: {topicNames[result.topicIndex] || 'Неизвестная тема'}, 
-                    Дата: {new Date(result.date).toLocaleString()}, 
-                    Время: {result.time}, 
-                    Завершено изображений: {result.imagesCompleted}, 
-                    Правильные ответы: {result.correctAnswers}
+                    Téma: {topicNames[result.topicIndex] || 'Neznáma téma'}, 
+                    Dátum: {new Date(result.date).toLocaleString()}, 
+                    Čas: {result.time}, 
+                    Dokončené obrázky: {result.imagesCompleted}, 
+                    Správne odpovede: {result.correctAnswers}
                   </li>
                 ))}
               </ul>
@@ -98,7 +98,7 @@ export default function TeacherStatsPage() {
           ))}
         </ul>
       ) : (
-        <p>Нет доступной статистики.</p>
+        <p>Žiadne dostupné štatistiky.</p>
       )}
     </div>
   );
