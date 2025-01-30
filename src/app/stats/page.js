@@ -6,30 +6,33 @@ import { useRouter } from 'next/navigation';
 import { FaFilter } from 'react-icons/fa';
 import '../globals.css';
 
-export default function TeacherStatsPage() {
+export default function StatsPage() {
   const { user } = useContext(UserContext);
   const router = useRouter();
   const [stats, setStats] = useState([]);
   const [error, setError] = useState('');
   const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState('Všetky');
+  const [selectedTopic, setSelectedTopic] = useState('Всё');
   const [topicNames, setTopicNames] = useState([]);
 
   useEffect(() => {
-    if (!user || user.role !== 'teacher') {
-      router.push('/topics');
+    if (!user) {
+      router.push('/');
       return;
     }
 
     const fetchData = async () => {
       try {
-        // Načítanie data.json
+        // Загрузка data.json
         const dataResponse = await fetch('/data.json');
         const data = await dataResponse.json();
         setTopicNames(data.topics.map(topic => topic.title));
 
-        // Načítanie štatistiky študentov
-        const statsResponse = await fetch('/api/teacher-stats', {
+        // Определение API маршрута в зависимости от роли
+        const apiEndpoint = user.role === 'teacher' ? '/api/teacher-stats' : '/api/student-stats';
+
+        // Загрузка статистики
+        const statsResponse = await fetch(apiEndpoint, {
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
@@ -38,13 +41,18 @@ export default function TeacherStatsPage() {
         const statsData = await statsResponse.json();
 
         if (statsResponse.ok) {
-          setStats(statsData.studentStats);
-          extractTopics(statsData.studentStats);
+          if (user.role === 'teacher') {
+            setStats(statsData.studentStats);
+            extractTopics(statsData.studentStats);
+          } else {
+            setStats([statsData.studentStats]);
+            extractTopics([statsData.studentStats]);
+          }
         } else {
-          setError(statsData.message || 'Chyba pri získavaní štatistiky.');
+          setError(statsData.message || 'Ошибка при получении статистики.');
         }
       } catch (err) {
-        setError('Chyba pri načítavaní dát.');
+        setError('Ошибка при загрузке данных.');
       }
     };
 
@@ -57,25 +65,25 @@ export default function TeacherStatsPage() {
       allTopics.add(stat.currentTopic);
       stat.completedTopics.forEach(topic => allTopics.add(topic));
     });
-    setTopics(['Všetky', ...Array.from(allTopics)]);
+    setTopics(['Всё', ...Array.from(allTopics)]);
   };
 
-  const filteredStats = selectedTopic === 'Všetky' 
+  const filteredStats = selectedTopic === 'Всё' 
     ? stats 
     : stats.filter(stat => 
         stat.completedTopics.includes(selectedTopic) || stat.currentTopic === selectedTopic
       );
 
-  if (!user || user.role !== 'teacher') {
-    return <div className="redirect-message">Presmerovanie na inú stránku...</div>;
+  if (!user) {
+    return <div className="redirect-message">Перенаправление на другую страницу...</div>;
   }
 
   return (
     <div className="stats-container">
       <button onClick={() => router.push('/topics')} className="back-button">
-        Vrátiť sa k témam
+        Вернуться к темам
       </button>
-      <h1 className="stats-title">Študentská štatistika</h1>
+      <h1 className="stats-title">Статистика</h1>
       {error && <p className="error-message">{error}</p>}
       <div className="filter-section">
         <FaFilter className="filter-icon" />
@@ -97,11 +105,11 @@ export default function TeacherStatsPage() {
               <div className="student-results">
                 {stat.results.map((result, idx) => (
                   <div key={idx} className="result-card">
-                    <p><span>Téma:</span> {topicNames[result.topicIndex] || 'Neznáma téma'}</p>
-                    <p><span>Dátum:</span> {new Date(result.date).toLocaleString()}</p>
-                    <p><span>Čas:</span> {result.time}</p>
-                    <p><span>Dokončené obrázky:</span> {result.imagesCompleted}</p>
-                    <p><span>Správne odpovede:</span> {result.correctAnswers}</p>
+                    <p><span>Тема:</span> {topicNames[result.topicIndex] || 'Неизвестная тема'}</p>
+                    <p><span>Дата:</span> {new Date(result.date).toLocaleString()}</p>
+                    <p><span>Время:</span> {result.time}</p>
+                    <p><span>Завершенные изображения:</span> {result.imagesCompleted}</p>
+                    <p><span>Правильные ответы:</span> {result.correctAnswers}</p>
                   </div>
                 ))}
               </div>
@@ -109,7 +117,7 @@ export default function TeacherStatsPage() {
           ))}
         </ul>
       ) : (
-        <p className="no-stats">Žiadne dostupné štatistiky.</p>
+        <p className="no-stats">Нет доступной статистики.</p>
       )}
     </div>
   );

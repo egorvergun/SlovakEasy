@@ -382,20 +382,6 @@
     ]
   },
   {
-    "email": "y@gmail.com",
-    "password": "$2a$10$lsizWkRTyNpL.eZRl9X5LO3eA2kwqjnrE9kWYGL/NkDIjQ64Arw1a",
-    "role": "student",
-    "completedTopics": [],
-    "teacher": "vergunegor@gmail.com"
-  },
-  {
-    "email": "l@gmail.com",
-    "password": "$2a$10$.ntylho/cHXi3dC46EoiqediSh4riWnkv66xcjNrQo9fHkEXNn33C",
-    "role": "student",
-    "completedTopics": [],
-    "teacher": "f@gmail.com"
-  },
-  {
     "email": "s@gmail.com",
     "password": "$2a$10$AcIqozpCvnurwT/8vHJLT.23NBj6JQWHkaCrk.HjNBNqrNCTC3ky6",
     "role": "student",

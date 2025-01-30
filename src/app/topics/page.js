@@ -56,10 +56,11 @@ export default function TopicSelection() {
           <p className="no-topics">Žiadne dostupné témy.</p>
         )}
       </div>
+      <button className="stats-button" onClick={() => router.push('/stats')}>Štatistika študentov</button>
       {user.role === 'teacher' && (
         <div id="teacher-buttons" className="teacher-buttons">
           <button className="add-topic-button" onClick={showAddTopicForm}>Pridať novú tému</button>
-          <button className="stats-button" onClick={() => router.push('/stats')}>Štatistika študentov</button>
+          
         </div>
       )}
       {error && <p className="error-message">{error}</p>}
