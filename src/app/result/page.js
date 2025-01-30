@@ -35,7 +35,6 @@ export default function Result() {
 
   useEffect(() => {
     if (!user) {
-      // Presmerovanie na prihlasovaciu stránku s uložením aktuálnej URL
       router.push(`/login?callbackUrl=${encodeURIComponent(window.location.pathname + window.location.search)}`);
     } else if (!resultSaved) {
       const saveResult = async () => {
@@ -62,19 +61,22 @@ export default function Result() {
   }, [user, resultSaved]);
 
   if (!user) {
-    return <div>Presmerovanie na prihlasovaciu stránku...</div>;
+    return <div className="redirect-message">Presmerovanie na prihlasovaciu stránku...</div>;
   }
 
   return (
-    <div>
-      <h1>Výsledok</h1>
-      <p>Téma: {topics[topicIndex]?.title || 'N/A'}</p>
-      <p>
-        Správne odpovede: {correct} z {imagesCompleted}
-      </p>
-      <p>Čas: {time}</p>
-
-      <button onClick={goToTopics}>Vrátiť sa k témam</button>
+    <div className="result-container">
+      <h1 className="result-title">Výsledok</h1>
+      <div className="result-card">
+        <p className="result-topic">Téma: {topics[topicIndex]?.title || 'N/A'}</p>
+        <p className="result-score">
+          Správne odpovede: <span className="highlight">{correct}</span> z {imagesCompleted}
+        </p>
+        <p className="result-time">Čas: {time}</p>
+      </div>
+      <button className="go-to-topics-button" onClick={goToTopics}>
+        Vrátiť sa k témam
+      </button>
     </div>
   );
 }

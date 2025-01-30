@@ -36,30 +36,33 @@ export default function TopicSelection() {
   };
 
   if (!user) {
-    return <p>Načítava sa...</p>;
+    return <p className="redirect-message">Načítava sa...</p>;
   }
 
   return (
     <div id="topic-selection">
-      <h2>Vyberte tému na učenie</h2>
-      <div id="topic-list">
+      <h2 className="topics-title">Vyberte tému na učenie</h2>
+      <div id="topic-list" className="topic-list">
         {topics.length > 0 ? (
           topics.map((topic, index) => (
-            <button key={index} onClick={() => startLearning(index)}>
-              {topic.title}
-            </button>
+            <div key={index} className="topic-card">
+              <h3 className="topic-title">{topic.title}</h3>
+              <button className="start-learning-button" onClick={() => startLearning(index)}>
+                Začať učenie
+              </button>
+            </div>
           ))
         ) : (
-          <p>Žiadne dostupné témy.</p>
+          <p className="no-topics">Žiadne dostupné témy.</p>
         )}
       </div>
       {user.role === 'teacher' && (
-        <div id="teacher-buttons">
-          <button onClick={showAddTopicForm}>Pridať novú tému</button>
-          <button onClick={() => router.push('/stats')}>Štatistika študentov</button>
+        <div id="teacher-buttons" className="teacher-buttons">
+          <button className="add-topic-button" onClick={showAddTopicForm}>Pridať novú tému</button>
+          <button className="stats-button" onClick={() => router.push('/stats')}>Štatistika študentov</button>
         </div>
       )}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }

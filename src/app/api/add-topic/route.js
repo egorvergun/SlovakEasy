@@ -1,104 +1,165 @@
-// src/app/api/add-topic/route.js
-
 import fs from 'fs/promises';
 import path from 'path';
 import { NextResponse } from 'next/server';
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+// Функция для очистки названия темы
+function sanitizeTitle(title) {
+  return title
+    .replace(/[<>:"/\\|?*]+/g, '') // Удаление запрещенных символов
+    .replace(/\s+/g, '_')          // Замена пробелов на подчеркивания
+    .toLowerCase();                // Приведение к нижнему регистру
+}
+
 export async function POST(req) {
   console.log('Prijatá POST požiadavka na /api/add-topic');
 
-  // Parsovanie údajov formulára z požiadavky
   const formData = await req.formData();
 
-  // Získanie názvu témy
   const title = formData.get('title');
   if (!title) {
-    return NextResponse.json({ message: 'Názov témy je povinný.' }, { status: 400 });
+    return NextResponse.json({ message: 'Нужно указать название темы.' }, { status: 400 });
   }
 
-  // Vytvorenie adresára pre nahrávanie, ak neexistuje
   const uploadDir = path.join(process.cwd(), 'public', 'uploads');
   try {
     await fs.mkdir(uploadDir, { recursive: true });
-    console.log('Adresár pre nahrávanie zabezpečený:', uploadDir);
+    console.log('Адресар для загрузки обеспечен:', uploadDir);
   } catch (err) {
-    console.error('Chyba pri vytváraní adresára pre nahrávanie:', err);
-    return NextResponse.json({ message: 'Serverová chyba.' }, { status: 500 });
+    console.error('Ошибка при создании директории для загрузки:', err);
+    return NextResponse.json({ message: 'Серверная ошибка.', status: 500 });
   }
 
-  const blocks = [];
+  const images = [];
 
-  // Spracovanie blokov
-  for (let index = 0; index < 10; index++) {
-    const sk = formData.get(`blocks[${index}][sk]`);
-    const uk = formData.get(`blocks[${index}][uk]`);
-    const imageFile = formData.get(`blocks[${index}][image]`);
+  // Логирование всех полей формы для отладки
+  for (let pair of formData.entries()) {
+    const [key, value] = pair;
+    console.log(`Field: ${key}, Value:`, value);
+  }
 
-    if (!sk || !uk || !imageFile || typeof imageFile === 'string') {
-      console.error(`Nedostatok údajov v bloku ${index}`);
-      return NextResponse.json({ message: `Vyplňte všetky polia v bloku ${index + 1}.` }, { status: 400 });
+  for (let pair of formData.entries()) {
+    const [key, value] = pair;
+    const imageMatch = key.match(/images\[(\d+)\]\[(sk|uk|image)\]/);
+    if (imageMatch) {
+      const index = imageMatch[1];
+      const field = imageMatch[2];
+      if (!images[index]) {
+        images[index] = { sk: '', uk: '', imageFile: null };
+      }
+      images[index][field === 'image' ? 'imageFile' : field] = value;
     }
+  }
 
-    // Uloženie obrázkového súboru
+  // Удаление пустых элементов массива
+  const filteredImages = images.filter(image => image.imageFile);
+
+  // Проверка наличия хотя бы одного изображения
+  if (filteredImages.length === 0) {
+    return NextResponse.json({ message: 'Необходимо добавить хотя бы одно изображение.' }, { status: 400 });
+  }
+
+  // Проверка всех изображений
+  for (let i = 0; i < filteredImages.length; i++) {
+    const image = filteredImages[i];
+    if (!image.sk || !image.uk || !image.imageFile) {
+      return NextResponse.json(
+        { message: `Заполните все поля в изображении ${i + 1}.` },
+        { status: 400 }
+      );
+    }
+  }
+
+  const sanitizedTitle = sanitizeTitle(title);
+  // Теперь сохраняем все изображения напрямую в папку uploads
+  const topicDir = uploadDir; // Без отдельной папки для темы
+
+  try {
+    // Убедитесь, что папка uploads существует
+    await fs.mkdir(topicDir, { recursive: true });
+    console.log('Адресар для загрузки обеспечен:', topicDir);
+  } catch (mkdirErr) {
+    console.error('Ошибка при создании директории для загрузки:', mkdirErr);
+    return NextResponse.json(
+      { message: 'Ошибка при создании директории для загрузки.' },
+      { status: 500 }
+    );
+  }
+
+  const imagesData = [];
+
+  for (let i = 0; i < filteredImages.length; i++) {
+    const { sk, uk, imageFile } = filteredImages[i];
     const ext = path.extname(imageFile.name);
-    const newFilename = `${title}_block${index + 1}${ext}`;
-    const newPath = path.join(uploadDir, newFilename);
+    // Генерируем уникальное имя файла, чтобы избежать конфликтов
+    const newFilename = `${sanitizedTitle}_image_${Date.now()}_${i + 1}${ext}`;
+    const newPath = path.join(topicDir, newFilename);
 
     try {
       const arrayBuffer = await imageFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       await fs.writeFile(newPath, buffer);
-      console.log(`Obrázok uložený: ${newPath}`);
+      console.log(`Изображение сохранено: ${newPath}`);
     } catch (err) {
-      console.error('Chyba pri ukladaní obrázka:', err);
-      return NextResponse.json({ message: 'Chyba pri ukladaní obrázka.' }, { status: 500 });
+      console.error('Ошибка при сохранении изображения:', err);
+      return NextResponse.json(
+        { message: 'Ошибка при сохранении изображения.' },
+        { status: 500 }
+      );
     }
 
-    blocks.push({
+    imagesData.push({
       src: `uploads/${newFilename}`,
       sk,
       uk,
     });
   }
 
-  if (blocks.length !== 10) {
-    console.error('Nesprávny počet blokov:', blocks.length);
-    return NextResponse.json({ message: 'Má byť 10 blokov.' }, { status: 400 });
-  }
-
-  // Čítanie existujúcich údajov
+  // Чтение существующих данных
   const dataFilePath = path.join(process.cwd(), 'public', 'data.json');
   let data = { topics: [] };
 
   try {
-    if (await fs.stat(dataFilePath)) {
-      const jsonData = await fs.readFile(dataFilePath, 'utf8');
-      data = JSON.parse(jsonData);
-      console.log('Existujúce údaje načítané.');
-    }
+    const jsonData = await fs.readFile(dataFilePath, 'utf8');
+    data = JSON.parse(jsonData);
+    console.log('Существующие данные загружены.');
   } catch (readErr) {
     if (readErr.code !== 'ENOENT') {
-      console.error('Chyba pri čítaní data.json:', readErr);
-      return NextResponse.json({ message: 'Chyba pri čítaní údajov.' }, { status: 500 });
+      console.error('Ошибка при чтении data.json:', readErr);
+      return NextResponse.json(
+        { message: 'Ошибка при чтении данных.' },
+        { status: 500 }
+      );
     }
-
+    // Если файл не существует, продолжаем с пустыми данными
   }
 
-  // Pridanie novej témy
+  // Добавление новой темы с ключом "images" вместо "blocks"
   data.topics.push({
     title,
-    images: blocks,
+    images: imagesData,
   });
-  console.log('Nová téma pridaná:', title);
+  console.log('Новая тема добавлена:', title);
 
-  // Uloženie aktualizovaných údajov
+  // Сохранение обновленных данных
   try {
     await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), 'utf8');
-    console.log('Údaje úspešne uložené v data.json');
+    console.log('Данные успешно сохранены в data.json');
   } catch (writeErr) {
-    console.error('Chyba pri zápise do data.json:', writeErr);
-    return NextResponse.json({ message: 'Chyba pri ukladaní údajov.' }, { status: 500 });
+    console.error('Ошибка при записи в data.json:', writeErr);
+    return NextResponse.json(
+      { message: 'Ошибка при сохранении данных.' },
+      { status: 500 }
+    );
   }
 
-  return NextResponse.json({ message: 'Téma úspešne pridaná.' }, { status: 200 });
+  return NextResponse.json(
+    { message: 'Тема успешно добавлена.' },
+    { status: 200 }
+  );
 }

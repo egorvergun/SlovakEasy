@@ -1,5 +1,3 @@
-// src/app/login/page.js
-
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -47,10 +45,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Prihlásenie</h2>
-      <form onSubmit={handleLogin}>
-        <div>
+      <form onSubmit={handleLogin} className="form-content">
+        {error && <p className="error-message">{error}</p>}
+        <div className="form-group">
           <label>Email:</label>
           <input 
             type="email" 
@@ -59,7 +58,7 @@ export default function LoginPage() {
             required 
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Heslo:</label>
           <input 
             type="password" 
@@ -68,7 +67,6 @@ export default function LoginPage() {
             required 
           />
         </div>
-        {error && <p style={{color: 'red'}}>{error}</p>}
         <button type="submit">Prihlásiť sa</button>
       </form>
     </div>

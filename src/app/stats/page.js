@@ -67,38 +67,49 @@ export default function TeacherStatsPage() {
       );
 
   if (!user || user.role !== 'teacher') {
-    return <div>Presmerovanie na inú stránku...</div>;
+    return <div className="redirect-message">Presmerovanie na inú stránku...</div>;
   }
 
   return (
     <div className="stats-container">
       <button onClick={() => router.push('/topics')} className="back-button">
-            Vrátiť sa k témam
-          </button>
-      <h1>Študentská štatistika</h1>
-      {error && <p className="error">{error}</p>}
+        Vrátiť sa k témam
+      </button>
+      <h1 className="stats-title">Študentská štatistika</h1>
+      {error && <p className="error-message">{error}</p>}
+      <div className="filter-section">
+        <FaFilter className="filter-icon" />
+        <select 
+          value={selectedTopic} 
+          onChange={(e) => setSelectedTopic(e.target.value)}
+          className="filter-select"
+        >
+          {topics.map((topic, index) => (
+            <option key={index} value={topic}>{topic}</option>
+          ))}
+        </select>
+      </div>
       {filteredStats.length > 0 ? (
         <ul className="stats-list">
           {filteredStats.map((stat, index) => (
             <li key={index} className="stat-item">
-              <h3>{stat.email}</h3>
-              <p>Výsledky:</p>
-              <ul>
+              <h3 className="student-email">{stat.email}</h3>
+              <div className="student-results">
                 {stat.results.map((result, idx) => (
-                  <li key={idx}>
-                    Téma: {topicNames[result.topicIndex] || 'Neznáma téma'}, 
-                    Dátum: {new Date(result.date).toLocaleString()}, 
-                    Čas: {result.time}, 
-                    Dokončené obrázky: {result.imagesCompleted}, 
-                    Správne odpovede: {result.correctAnswers}
-                  </li>
+                  <div key={idx} className="result-card">
+                    <p><span>Téma:</span> {topicNames[result.topicIndex] || 'Neznáma téma'}</p>
+                    <p><span>Dátum:</span> {new Date(result.date).toLocaleString()}</p>
+                    <p><span>Čas:</span> {result.time}</p>
+                    <p><span>Dokončené obrázky:</span> {result.imagesCompleted}</p>
+                    <p><span>Správne odpovede:</span> {result.correctAnswers}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </li>
           ))}
         </ul>
       ) : (
-        <p>Žiadne dostupné štatistiky.</p>
+        <p className="no-stats">Žiadne dostupné štatistiky.</p>
       )}
     </div>
   );

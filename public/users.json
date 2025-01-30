@@ -5,7 +5,9 @@
     "role": "teacher",
     "students": [
       "verhunenot@gmail.com",
-      "guest@g.com"
+      "guest@g.com",
+      "y@gmail.com",
+      "s@gmail.com"
     ],
     "completedTopics": [],
     "results": [
@@ -56,6 +58,190 @@
         "correctAnswers": 5,
         "topicIndex": 0,
         "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:19:49.547Z",
+        "time": "00:00:10",
+        "imagesCompleted": 0,
+        "correctAnswers": 0,
+        "topicIndex": 6,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:19:57.680Z",
+        "time": "00:00:04",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 5,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:27:57.368Z",
+        "time": "00:00:58",
+        "imagesCompleted": 0,
+        "correctAnswers": 0,
+        "topicIndex": 6,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:28:01.009Z",
+        "time": "00:00:01",
+        "imagesCompleted": 0,
+        "correctAnswers": 0,
+        "topicIndex": 6,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:37:08.257Z",
+        "time": "00:00:18",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 5,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:38:21.280Z",
+        "time": "00:00:05",
+        "imagesCompleted": 0,
+        "correctAnswers": 0,
+        "topicIndex": 7,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:38:57.146Z",
+        "time": "00:00:03",
+        "imagesCompleted": 0,
+        "correctAnswers": 0,
+        "topicIndex": 7,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:40:03.444Z",
+        "time": "00:00:11",
+        "imagesCompleted": 9,
+        "correctAnswers": 0,
+        "topicIndex": 5,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:40:43.646Z",
+        "time": "00:00:09",
+        "imagesCompleted": 2,
+        "correctAnswers": 0,
+        "topicIndex": 6,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:51:02.065Z",
+        "time": "00:00:02",
+        "imagesCompleted": 1,
+        "correctAnswers": 0,
+        "topicIndex": 8,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:51:11.618Z",
+        "time": "00:00:04",
+        "imagesCompleted": 1,
+        "correctAnswers": 0,
+        "topicIndex": 8,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T14:51:48.633Z",
+        "time": "00:00:28",
+        "imagesCompleted": 2,
+        "correctAnswers": 1,
+        "topicIndex": 6,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T15:26:50.945Z",
+        "time": "00:00:08",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T15:39:49.515Z",
+        "time": "00:00:14",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T15:44:35.447Z",
+        "time": "00:00:03",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T16:43:43.167Z",
+        "time": "00:02:51",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T16:50:26.492Z",
+        "time": "00:02:38",
+        "imagesCompleted": 10,
+        "correctAnswers": 4,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T17:00:14.866Z",
+        "time": "00:00:08",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 7,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T17:07:51.831Z",
+        "time": "00:00:21",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T17:16:50.005Z",
+        "time": "00:00:04",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 1,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T17:17:10.218Z",
+        "time": "00:00:04",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 7,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T17:30:57.463Z",
+        "time": "00:00:17",
+        "imagesCompleted": 10,
+        "correctAnswers": 2,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T17:49:52.672Z",
+        "time": "00:00:06",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
       }
     ]
   },
@@ -95,6 +281,7 @@
     "email": "guest@g.com",
     "password": "$2a$10$gS3odZpTnNYYXAJc29EbueRFgCtfU9hs6CJXyAg/DrJOSjQesFC82",
     "role": "student",
+    "teacher": "vergunegor@gmail.com",
     "completedTopics": [],
     "results": [
       {
@@ -138,7 +325,26 @@
     "completedTopics": [],
     "students": [
       "a@gmail.com",
-      "g@gmail.com"
+      "g@gmail.com",
+      "l@gmail.com"
+    ],
+    "results": [
+      {
+        "date": "2025-01-30T17:36:42.152Z",
+        "time": "00:02:38",
+        "imagesCompleted": 10,
+        "correctAnswers": 2,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-30T17:38:05.736Z",
+        "time": "00:00:40",
+        "imagesCompleted": 3,
+        "correctAnswers": 0,
+        "topicIndex": 9,
+        "correctImages": []
+      }
     ]
   },
   {
@@ -168,6 +374,37 @@
       {
         "date": "2025-01-30T11:42:58.704Z",
         "time": "00:00:14",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
+      }
+    ]
+  },
+  {
+    "email": "y@gmail.com",
+    "password": "$2a$10$lsizWkRTyNpL.eZRl9X5LO3eA2kwqjnrE9kWYGL/NkDIjQ64Arw1a",
+    "role": "student",
+    "completedTopics": [],
+    "teacher": "vergunegor@gmail.com"
+  },
+  {
+    "email": "l@gmail.com",
+    "password": "$2a$10$.ntylho/cHXi3dC46EoiqediSh4riWnkv66xcjNrQo9fHkEXNn33C",
+    "role": "student",
+    "completedTopics": [],
+    "teacher": "f@gmail.com"
+  },
+  {
+    "email": "s@gmail.com",
+    "password": "$2a$10$AcIqozpCvnurwT/8vHJLT.23NBj6JQWHkaCrk.HjNBNqrNCTC3ky6",
+    "role": "student",
+    "completedTopics": [],
+    "teacher": "vergunegor@gmail.com",
+    "results": [
+      {
+        "date": "2025-01-30T22:46:31.057Z",
+        "time": "00:00:02",
         "imagesCompleted": 10,
         "correctAnswers": 0,
         "topicIndex": 0,

@@ -9,41 +9,46 @@ export default function EditPage() {
   const router = useRouter();
   const { user } = useContext(UserContext);
   const [title, setTitle] = useState('');
-  const [blocks, setBlocks] = useState(
-    Array.from({ length: 10 }, () => ({ sk: '', uk: '', imageFile: null }))
-  );
+  const [images, setImages] = useState([
+    { sk: '', uk: '', imageFile: null },
+  ]);
   const [error, setError] = useState('');
 
-  if (!user || user.role !== 'teacher') {
-    router.push('/topics');
-    return null;
-  }
-
-  const handleBlockChange = (index, field, value) => {
-    const updatedBlocks = [...blocks];
-    updatedBlocks[index][field] = value;
-    setBlocks(updatedBlocks);
+  const handleImageChange = (index, field, value) => {
+    const updatedImages = [...images];
+    updatedImages[index][field] = value;
+    setImages(updatedImages);
   };
 
-  const handleImageChange = (index, file) => {
-    const updatedBlocks = [...blocks];
-    updatedBlocks[index].imageFile = file;
-    setBlocks(updatedBlocks);
+  const addImage = () => {
+    setImages([...images, { sk: '', uk: '', imageFile: null }]);
+  };
+
+  const removeImage = (index) => {
+    const updatedImages = images.filter((_, i) => i !== index);
+    setImages(updatedImages);
   };
 
   const saveTopic = async (e) => {
     e.preventDefault();
     setError('');
 
+    // Валидация изображений
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      if (!image.sk || !image.uk || !image.imageFile) {
+        setError(`Vyplňte všetky polia v obrázku ${i + 1}.`);
+        return;
+      }
+    }
+
     const formData = new FormData();
     formData.append('title', title);
 
-    blocks.forEach((block, index) => {
-      formData.append(`blocks[${index}][sk]`, block.sk);
-      formData.append(`blocks[${index}][uk]`, block.uk);
-      if (block.imageFile) {
-        formData.append(`blocks[${index}][image]`, block.imageFile);
-      }
+    images.forEach((image, index) => {
+      formData.append(`images[${index}][sk]`, image.sk);
+      formData.append(`images[${index}][uk]`, image.uk);
+      formData.append(`images[${index}][image]`, image.imageFile);
     });
 
     try {
@@ -54,7 +59,7 @@ export default function EditPage() {
 
       if (response.ok) {
         alert('Téma bola úspešne pridaná!');
-        router.push('/topics');
+        router.push('/topics'); // Перенаправление на страницу тем
       } else {
         const data = await response.json();
         setError(data.message || 'Chyba pri ukladaní témy.');
@@ -70,13 +75,11 @@ export default function EditPage() {
   };
 
   return (
-    <div id="edit-page">
-      <button onClick={() => router.push('/topics')} className="back-button">
-            Vrátiť sa k témam
-          </button>
+    <div className="form-container">
       <h2>Pridať novú tému</h2>
-      <form onSubmit={saveTopic}>
-        <div>
+      <form onSubmit={saveTopic} className="form-content">
+        {error && <p className="error-message">{error}</p>}
+        <div className="form-group">
           <label>Názov témy:</label>
           <input 
             type="text" 
@@ -85,39 +88,44 @@ export default function EditPage() {
             required 
           />
         </div>
-        {blocks.map((block, index) => (
-          <div key={index} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
-            <h4>Blok {index + 1}</h4>
-            <div>
+        {images.map((image, index) => (
+          <div key={index} className="image-box">
+            <h3>Obrázok {index + 1}</h3>
+            <div className="form-group">
               <label>Slovenský text:</label>
               <textarea 
-                value={block.sk}
-                onChange={(e) => handleBlockChange(index, 'sk', e.target.value)}
+                value={image.sk}
+                onChange={(e) => handleImageChange(index, 'sk', e.target.value)}
                 required 
               />
             </div>
-            <div>
+            <div className="form-group">
               <label>Ukrajinský text:</label>
               <textarea 
-                value={block.uk}
-                onChange={(e) => handleBlockChange(index, 'uk', e.target.value)}
+                value={image.uk}
+                onChange={(e) => handleImageChange(index, 'uk', e.target.value)}
                 required 
               />
             </div>
-            <div>
+            <div className="form-group">
               <label>Obrázok:</label>
               <input 
                 type="file" 
                 accept="image/*"
-                onChange={(e) => handleImageChange(index, e.target.files[0])}
+                onChange={(e) => handleImageChange(index, 'imageFile', e.target.files[0])}
                 required 
               />
             </div>
+            {images.length > 1 && (
+              <button type="button" className="remove-button" onClick={() => removeImage(index)}>Odstrániť obrázok</button>
+            )}
           </div>
         ))}
-        {error && <p style={{color: 'red'}}>{error}</p>}
-        <button type="submit">Uložiť</button>
-        <button type="button" onClick={cancelEdit}>Zrušiť</button>
+        <button type="button" className="add-button" onClick={addImage}>Pridať ďalší obrázok</button>
+        <div className="button-group">
+          <button type="submit" className="submit-button">Uložiť</button>
+          <button type="button" className="cancel-button" onClick={cancelEdit}>Zrušiť</button>
+        </div>
       </form>
     </div>
   );

@@ -37,10 +37,11 @@ export default function RegisterPage() {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <h2>Registrácia</h2>
-      <form onSubmit={handleRegister}>
-        <div>
+      <form onSubmit={handleRegister} className="form-content">
+        {error && <p className="error-message">{error}</p>}
+        <div className="form-group">
           <label>Email:</label>
           <input 
             type="email" 
@@ -49,7 +50,7 @@ export default function RegisterPage() {
             required 
           />
         </div>
-        <div>
+        <div className="form-group">
           <label>Heslo:</label>
           <input 
             type="password" 
@@ -58,7 +59,6 @@ export default function RegisterPage() {
             required 
           />
         </div>
-        {error && <p style={{color: 'red'}}>{error}</p>}
         <button type="submit">Zaregistrovať sa</button>
       </form>
     </div>

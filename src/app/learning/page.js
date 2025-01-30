@@ -1,16 +1,16 @@
 'use client';
 
-import { useState, useEffect, useRef, useContext, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import '../globals.css';
-import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa'; 
-import runningDog from '../../../public/runningDog.gif';
 
 export default function Learning() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const topicIndex = searchParams.get('topic');
+  const topicIndexParam = searchParams.get('topic');
+  const topicIndex = parseInt(topicIndexParam, 10); // Преобразование в число
   const { user } = useContext(UserContext);
 
   const [topics, setTopics] = useState([]);
@@ -27,7 +27,7 @@ export default function Learning() {
   const startTimeRef = useRef(null);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [correctImages, setCorrectImages] = useState([]);
-  const [progress, setProgress] = useState(Array(10).fill(false));
+  const [progress, setProgress] = useState([]);
   const [resultSaved, setResultSaved] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -45,8 +45,11 @@ export default function Learning() {
     startTimeRef.current = Date.now();
   }, []);
 
-  const images = topics[topicIndex]?.images.slice(0, 10) || [];
-  const img = images[currentImageIndex];
+  // Проверка, что topicIndex является валидным числом и находится в пределах массива topics
+  const validTopicIndex = !isNaN(topicIndex) && topicIndex >= 0 && topicIndex < topics.length;
+
+  const images = validTopicIndex ? (topics[topicIndex]?.images?.slice(0, 10) || []) : [];
+  const img = images[currentImageIndex] || {};
 
   const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -81,28 +84,21 @@ export default function Learning() {
   const saveResult = useCallback(async () => {
     if (user && !resultSaved) {
       try {
-        const response = await fetch('/api/save-result', {
+        await fetch('/api/save-result', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: user.email,
-            time: formatTime(Date.now() - startTimeRef.current),
-            imagesCompleted: images.length,
-            correctAnswers: correctAnswers,
+            time,
+            imagesCompleted: Number(imagesCompleted),
+            correctAnswers: Number(correct),
             topicIndex: Number(topicIndex),
-            correctImages: progress,
+            correctImages,
           }),
         });
-        if (response.ok) {
-          setResultSaved(true);
-          console.log('Výsledok úspešne uložený');
-        } else {
-          console.error('Chyba pri ukladaní výsledku:', response.statusText);
-          setMessage('Nepodarilo sa uložiť výsledok. Prosím, skúste to neskôr.');
-        }
+        setResultSaved(true);
       } catch (error) {
         console.error('Chyba pri ukladaní výsledku:', error);
-        setMessage('Nepodarilo sa uložiť výsledok. Prosím, skúste to neskôr.');
       }
     }
   }, [user, resultSaved, correctAnswers, progress, topicIndex, images.length]);
@@ -110,7 +106,7 @@ export default function Learning() {
   const playSound = (lang) => {
     const text = lang === 'sk' ? img?.sk : img?.uk;
     if (!text) return;
-    
+
     const utterance = new SpeechSynthesisUtterance(text);
     if (lang === 'sk') {
       utterance.lang = 'sk-SK';
@@ -122,7 +118,7 @@ export default function Learning() {
       }
       utterance.lang = 'uk-UA';
     }
-    
+
     speechSynthesis.speak(utterance);
   };
 
@@ -170,20 +166,16 @@ export default function Learning() {
         }
       };
 
+
       recognition.onerror = (event) => {
-        console.error('Chyba rozpoznávania reči:', event.error);
-        if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
-          setMessage('Prístup k mikrofónu je zakázaný. Prosím, povoľte používanie mikrofónu v nastaveniach vášho prehliadača.');
-          setIsRecognizing(false);
-        } else {
-          setMessage('Došlo k chybe pri rozpoznávaní reči. Skúste to znova.');
-        }
+        console.error('Rozpoznávanie reči chyba:', event.error);
+        setMessage('Chyba pri rozpoznávaní reči.');
       };
 
       recognition.onend = () => {
-        if (isRecognizing) {
-          recognition.start();
-        }
+        setIsRecognizing(false);
+        stopAudioLevelMonitoring();
+        console.log('Rozpoznávanie reči skončilo');
       };
 
       try {
@@ -194,7 +186,6 @@ export default function Learning() {
         console.log('Rozpoznávanie reči začalo');
       } catch (error) {
         console.error('Chyba pri spustení rozpoznávania reči:', error);
-        setMessage('Nepodarilo sa spustiť rozpoznávanie reči.');
       }
     } else {
       alert('Váš prehliadač nepodporuje rozpoznávanie reči.');
@@ -225,15 +216,12 @@ export default function Learning() {
       audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
       const source = audioContextRef.current.createMediaStreamSource(stream);
       analyserRef.current = audioContextRef.current.createAnalyser();
-      analyserRef.current.fftSize = 256;
-      const bufferLength = analyserRef.current.frequencyBinCount;
-      dataArrayRef.current = new Uint8Array(bufferLength);
+      analyserRef.current.fftSize = 2048;
       source.connect(analyserRef.current);
+      dataArrayRef.current = new Uint8Array(analyserRef.current.frequencyBinCount);
       draw();
-      console.log('Monitorovanie úrovne audia začalo');
     } catch (err) {
-      console.error('Chyba pri prístupe k mikrofónu pre monitorovanie úrovne audia:', err);
-      setMessage('Nepodarilo sa získať prístup k mikrofónu pre monitorovanie úrovne audia.');
+      console.error('Chyba pri monitorovaní audia:', err);
     }
   }, []);
 
@@ -260,32 +248,34 @@ export default function Learning() {
   const draw = useCallback(() => {
     animationFrameIdRef.current = requestAnimationFrame(draw);
     if (analyserRef.current && dataArrayRef.current) {
-      analyserRef.current.getByteFrequencyData(dataArrayRef.current);
+      analyserRef.current.getByteTimeDomainData(dataArrayRef.current);
       let sum = 0;
       for (let i = 0; i < dataArrayRef.current.length; i++) {
-        sum += dataArrayRef.current[i];
+        const sample = dataArrayRef.current[i] / 128 - 1;
+        sum += sample * sample;
       }
-      const average = sum / dataArrayRef.current.length;
-      setAudioLevel(Math.min(average, 100));
+      const rms = Math.sqrt(sum / dataArrayRef.current.length);
+      const level = Math.min(Math.floor(rms * 100), 100);
+      setAudioLevel(level);
     }
   }, []);
 
   useEffect(() => {
     return () => {
+      stopAudioLevelMonitoring();
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
-      stopAudioLevelMonitoring();
     };
   }, [stopAudioLevelMonitoring]);
 
   return (
-    <div id="learning-page">
-      { !topics[topicIndex] ? (
-        <div>Téma nebola nájdená</div>
+    <div className="learning-container">
+      { !validTopicIndex || !topics[topicIndex] ? (
+        <div className="error-message">Téma nebola nájdená</div>
       ) : (
         <>
-          <h1>Učenie témy: {topics[topicIndex]?.title}</h1>
+          <h1 className="learning-title">Učenie témy: {topics[topicIndex]?.title}</h1>
           <div className="progress-bar">
             {images.map((_, index) => (
               <div
@@ -295,26 +285,26 @@ export default function Learning() {
             ))}
           </div>
           <div className="image-container">
-            <img src={`/${img.src}`} alt="Obrázok" />
+            {img.src ? <img src={`/${img.src}`} alt="Obrázok" className="learning-image" /> : <div className="loading">Čakanie na obrázok...</div>}
           </div>
           <div className="button-group">
-            <button onClick={() => playSound('sk')}>Slovenský</button>
-            <button onClick={() => playSound('uk')}>Ukrajinský</button>
+            <button className="sound-button" onClick={() => playSound('sk')}>Slovenský</button>
+            <button className="sound-button" onClick={() => playSound('uk')}>Ukrajinský</button>
           </div>
           
           <div className="toggle-button-container">
             <button
               onClick={toggleRecognition}
               className={`toggle-recognition-button ${isRecognizing ? 'active' : 'inactive'}`}>
-              {isRecognizing ? <FaMicrophoneSlash color="black" size={24} /> : <FaMicrophone color="green" size={24} />}
+              {isRecognizing ? <FaMicrophoneSlash color="white" size={24} /> : <FaMicrophone color="green" size={24} />}
             </button>
           </div>
 
-          <div id="message">{message}</div>
-          <div id="recognized-text">{recognizedText}</div>
-          <button onClick={nextImage}>Ďalší obrázok</button>
-          <div id="audio-level">
-            <div id="audio-level-bar" style={{ width: `${audioLevel}%` }}></div>
+          <div className="message">{message}</div>
+          <div className="recognized-text">{recognizedText}</div>
+          <button className="next-image-button" onClick={nextImage}>Ďalší obrázok</button>
+          <div className="audio-level">
+            <div className="audio-level-bar" style={{ width: `${audioLevel}%` }}></div>
           </div>
           <button onClick={() => router.push('/topics')} className="back-button">
             Vrátiť sa k témam
