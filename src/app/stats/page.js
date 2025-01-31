@@ -12,7 +12,7 @@ export default function StatsPage() {
   const [stats, setStats] = useState([]);
   const [error, setError] = useState('');
   const [topics, setTopics] = useState([]);
-  const [selectedTopic, setSelectedTopic] = useState('Всё');
+  const [selectedTopic, setSelectedTopic] = useState('Všetko');
   const [topicNames, setTopicNames] = useState([]);
 
   useEffect(() => {
@@ -23,15 +23,15 @@ export default function StatsPage() {
 
     const fetchData = async () => {
       try {
-        // Загрузка data.json
+        // Nahrávanie data.json
         const dataResponse = await fetch('/data.json');
         const data = await dataResponse.json();
         setTopicNames(data.topics.map(topic => topic.title));
 
-        // Определение API маршрута в зависимости от роли
+        // Určenie API koncového bodu v závislosti od role
         const apiEndpoint = user.role === 'teacher' ? '/api/teacher-stats' : '/api/student-stats';
 
-        // Загрузка статистики
+        // Nahrávanie štatistiky
         const statsResponse = await fetch(apiEndpoint, {
           headers: {
             'Authorization': `Bearer ${user.token}`
@@ -49,10 +49,10 @@ export default function StatsPage() {
             extractTopics([statsData.studentStats]);
           }
         } else {
-          setError(statsData.message || 'Ошибка при получении статистики.');
+          setError(statsData.message || 'Chyba pri získavaní štatistiky.');
         }
       } catch (err) {
-        setError('Ошибка при загрузке данных.');
+        setError('Chyba pri načítavaní dát.');
       }
     };
 
@@ -65,25 +65,25 @@ export default function StatsPage() {
       allTopics.add(stat.currentTopic);
       stat.completedTopics.forEach(topic => allTopics.add(topic));
     });
-    setTopics(['Всё', ...Array.from(allTopics)]);
+    setTopics(['Všetko', ...Array.from(allTopics)]);
   };
 
-  const filteredStats = selectedTopic === 'Всё' 
+  const filteredStats = selectedTopic === 'Všetko' 
     ? stats 
     : stats.filter(stat => 
         stat.completedTopics.includes(selectedTopic) || stat.currentTopic === selectedTopic
       );
 
   if (!user) {
-    return <div className="redirect-message">Перенаправление на другую страницу...</div>;
+    return <div className="redirect-message">Presmerovanie na inú stránku...</div>;
   }
 
   return (
     <div className="stats-container">
       <button onClick={() => router.push('/topics')} className="back-button">
-        Вернуться к темам
+        Vrátiť sa k témam
       </button>
-      <h1 className="stats-title">Статистика</h1>
+      <h1 className="stats-title">Štatistika</h1>
       {error && <p className="error-message">{error}</p>}
       <div className="filter-section">
         <FaFilter className="filter-icon" />
@@ -105,11 +105,11 @@ export default function StatsPage() {
               <div className="student-results">
                 {stat.results.map((result, idx) => (
                   <div key={idx} className="result-card">
-                    <p><span>Тема:</span> {topicNames[result.topicIndex] || 'Неизвестная тема'}</p>
-                    <p><span>Дата:</span> {new Date(result.date).toLocaleString()}</p>
-                    <p><span>Время:</span> {result.time}</p>
-                    <p><span>Завершенные изображения:</span> {result.imagesCompleted}</p>
-                    <p><span>Правильные ответы:</span> {result.correctAnswers}</p>
+                    <p><span>Téma:</span> {topicNames[result.topicIndex] || 'Neznáma téma'}</p>
+                    <p><span>Dátum:</span> {new Date(result.date).toLocaleString()}</p>
+                    <p><span>Čas:</span> {result.time}</p>
+                    <p><span>Dokončené obrázky:</span> {result.imagesCompleted}</p>
+                    <p><span>Správne odpovede:</span> {result.correctAnswers}</p>
                   </div>
                 ))}
               </div>
@@ -117,7 +117,7 @@ export default function StatsPage() {
           ))}
         </ul>
       ) : (
-        <p className="no-stats">Нет доступной статистики.</p>
+        <p className="no-stats">Žiadna dostupná štatistika.</p>
       )}
     </div>
   );

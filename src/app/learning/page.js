@@ -26,6 +26,7 @@ export default function Learning() {
   const animationFrameIdRef = useRef(null);
   const startTimeRef = useRef(null);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const correctAnswersRef = useRef(0); // Реф для правильных ответов
   const [correctImages, setCorrectImages] = useState([]);
   const [progress, setProgress] = useState([]);
   const [resultSaved, setResultSaved] = useState(false);
@@ -63,7 +64,7 @@ export default function Learning() {
     console.log(`Progres uložený pre tému: ${topicTitle}, obrázok: ${imageSrc}`);
   };
 
-  const nextImage = useCallback(() => {
+  const nextImageWithRef = useCallback(() => {
     if (currentImageIndex < images.length - 1) {
       setCurrentImageIndex(prevIndex => prevIndex + 1);
       setMessage('');
@@ -75,11 +76,13 @@ export default function Learning() {
 
       sessionStorage.setItem('correctImages', JSON.stringify(correctImages));
 
+      console.log('Переход на страницу результатов с correctAnswersRef.current:', correctAnswersRef.current);
+      
       router.push(
-        `/result?time=${formattedTime}&images=${images.length}&correct=${correctAnswers}&topic=${topicIndex}`
+        `/result?time=${formattedTime}&images=${images.length}&correct=${correctAnswersRef.current}&topic=${topicIndex}`
       );
     }
-  }, [currentImageIndex, images.length, correctAnswers, correctImages, router, topicIndex]);
+  }, [currentImageIndex, images.length, correctImages, router, topicIndex]);
 
   const saveResult = useCallback(async () => {
     if (user && !resultSaved) {
@@ -144,7 +147,13 @@ export default function Learning() {
           setMessage('Výborne, správne ste vyslovili slovo!');
           saveProgress(topics[topicIndex].title, img.src);
 
-          setCorrectAnswers((prev) => prev + 1);
+          setCorrectAnswers((prev) => {
+            const newCount = prev + 1;
+            correctAnswersRef.current = newCount;
+            console.log('correctAnswersRef.current:', correctAnswersRef.current);
+            return newCount;
+          });
+
           setCorrectImages((prev) => [...prev, img.src]);
 
           setProgress((prevProgress) => {
@@ -158,14 +167,13 @@ export default function Learning() {
 
           setTimeout(() => {
             setShowPopup(false);
+            console.log('Переходим к следующему изображению с correctAnswersRef.current:', correctAnswersRef.current);
+            nextImageWithRef();
           }, 3000);
-
-          nextImage();
         } else {
           setMessage('Skúste to znova.');
         }
       };
-
 
       recognition.onerror = (event) => {
         console.error('Rozpoznávanie reči chyba:', event.error);
@@ -190,7 +198,7 @@ export default function Learning() {
     } else {
       alert('Váš prehliadač nepodporuje rozpoznávanie reči.');
     }
-  }, [img, currentImageIndex, images.length, nextImage, saveResult, isRecognizing, topics, topicIndex]);
+  }, [img, currentImageIndex, images.length, nextImageWithRef, saveResult, isRecognizing, topics, topicIndex]);
 
   const stopRecognition = useCallback(() => {
     if (recognitionRef.current) {
@@ -260,6 +268,11 @@ export default function Learning() {
     }
   }, []);
 
+  // Удалите useEffect, который обновляет correctAnswersRef.current
+  // useEffect(() => {
+  //   correctAnswersRef.current = correctAnswers;
+  // }, [correctAnswers]);
+
   useEffect(() => {
     return () => {
       stopAudioLevelMonitoring();
@@ -302,7 +315,7 @@ export default function Learning() {
 
           <div className="message">{message}</div>
           <div className="recognized-text">{recognizedText}</div>
-          <button className="next-image-button" onClick={nextImage}>Ďalší obrázok</button>
+          <button className="next-image-button" onClick={nextImageWithRef}>Ďalší obrázok</button>
           <div className="audio-level">
             <div className="audio-level-bar" style={{ width: `${audioLevel}%` }}></div>
           </div>

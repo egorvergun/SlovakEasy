@@ -242,6 +242,14 @@
         "correctAnswers": 0,
         "topicIndex": 0,
         "correctImages": []
+      },
+      {
+        "date": "2025-01-31T11:56:31.859Z",
+        "time": "00:01:10",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
       }
     ]
   },
@@ -315,6 +323,30 @@
         "correctAnswers": 0,
         "topicIndex": 1,
         "correctImages": []
+      },
+      {
+        "date": "2025-01-31T11:13:56.154Z",
+        "time": "00:01:54",
+        "imagesCompleted": 10,
+        "correctAnswers": 8,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-31T11:17:18.378Z",
+        "time": "00:01:00",
+        "imagesCompleted": 10,
+        "correctAnswers": 9,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-31T11:19:05.286Z",
+        "time": "00:00:09",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
       }
     ]
   },
@@ -343,6 +375,14 @@
         "imagesCompleted": 3,
         "correctAnswers": 0,
         "topicIndex": 9,
+        "correctImages": []
+      },
+      {
+        "date": "2025-01-31T00:19:24.695Z",
+        "time": "00:00:13",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
         "correctImages": []
       }
     ]

@@ -3,6 +3,7 @@
 import { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { UserContext } from '../../context/UserContext';
+import Link from "next/link";
 import '../globals.css';
 
 export default function RegisterPage() {
@@ -60,6 +61,11 @@ export default function RegisterPage() {
           />
         </div>
         <button type="submit">Zaregistrovať sa</button>
+        <Link href="/login" legacyBehavior>
+          <a style={{ color: 'gray', background: 'none', textDecoration: 'none' }}>
+            Ak už máte účet, prihláste sa tu.
+          </a>
+        </Link>
       </form>
     </div>
   );
