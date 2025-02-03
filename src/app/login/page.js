@@ -1,12 +1,15 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
+import React, { useState, useContext, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
-import Link from "next/link";
+import Link from 'next/link';
 import '../globals.css';
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
@@ -40,8 +43,8 @@ export default function LoginPage() {
         setError(data.message);
       }
     } catch (error) {
-      console.error('Chyba pri prihlásení:', error);
-      setError('Prihlásenie nebolo úspešné.');
+      console.error('Chyba pri prihlasovaní:', error);
+      setError('Prihlásenie zlyhalo.');
     }
   };
 
@@ -52,20 +55,20 @@ export default function LoginPage() {
         {error && <p className="error-message">{error}</p>}
         <div className="form-group">
           <label>Email:</label>
-          <input 
-            type="email" 
+          <input
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required 
+            required
           />
         </div>
         <div className="form-group">
           <label>Heslo:</label>
-          <input 
-            type="password" 
+          <input
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required 
+            required
           />
         </div>
         <button type="submit">Prihlásiť sa</button>
@@ -76,5 +79,13 @@ export default function LoginPage() {
         </Link>
       </form>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Načítavam prihlasovanie...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }

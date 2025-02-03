@@ -250,6 +250,30 @@
         "correctAnswers": 0,
         "topicIndex": 0,
         "correctImages": []
+      },
+      {
+        "date": "2025-02-03T22:00:30.689Z",
+        "time": "00:00:49",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-02-03T22:01:46.280Z",
+        "time": "00:01:12",
+        "imagesCompleted": 10,
+        "correctAnswers": 9,
+        "topicIndex": 0,
+        "correctImages": []
+      },
+      {
+        "date": "2025-02-03T22:02:14.772Z",
+        "time": "00:00:06",
+        "imagesCompleted": 1,
+        "correctAnswers": 1,
+        "topicIndex": 5,
+        "correctImages": []
       }
     ]
   },
