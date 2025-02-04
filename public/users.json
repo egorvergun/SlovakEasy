@@ -5,8 +5,7 @@
     "role": "teacher",
     "students": [
       "verhunenot@gmail.com",
-      "guest@g.com",
-      "y@gmail.com",
+      "dark4ik08@gmail.com",
       "s@gmail.com"
     ],
     "completedTopics": [],
@@ -310,44 +309,12 @@
     ]
   },
   {
-    "email": "guest@g.com",
+    "email": "dark4ik08@gmail.com",
     "password": "$2a$10$gS3odZpTnNYYXAJc29EbueRFgCtfU9hs6CJXyAg/DrJOSjQesFC82",
     "role": "student",
     "teacher": "vergunegor@gmail.com",
     "completedTopics": [],
     "results": [
-      {
-        "date": "2025-01-27T02:22:15.947Z",
-        "time": "00:00:02",
-        "imagesCompleted": 10,
-        "correctAnswers": 0,
-        "topicIndex": 0,
-        "correctImages": []
-      },
-      {
-        "date": "2025-01-27T15:01:03.102Z",
-        "time": "00:00:12",
-        "imagesCompleted": 10,
-        "correctAnswers": 0,
-        "topicIndex": 4,
-        "correctImages": []
-      },
-      {
-        "date": "2025-01-27T15:04:21.650Z",
-        "time": "00:00:05",
-        "imagesCompleted": 10,
-        "correctAnswers": 0,
-        "topicIndex": 2,
-        "correctImages": []
-      },
-      {
-        "date": "2025-01-27T15:15:41.426Z",
-        "time": "00:00:02",
-        "imagesCompleted": 10,
-        "correctAnswers": 0,
-        "topicIndex": 1,
-        "correctImages": []
-      },
       {
         "date": "2025-01-31T11:13:56.154Z",
         "time": "00:01:54",

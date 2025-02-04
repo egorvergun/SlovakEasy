@@ -98,24 +98,22 @@ export default function StatsPage() {
         </select>
       </div>
       {filteredStats.length > 0 ? (
-        <ul className="stats-list">
+        <div className="stats-columns" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
           {filteredStats.map((stat, index) => (
-            <li key={index} className="stat-item">
+            <div key={index} className="stat-column" style={{ flex: '1 1 250px', border: '1px solid #ccc', padding: '1rem', borderRadius: '8px' }}>
               <h3 className="student-email">{stat.email}</h3>
-              <div className="student-results">
-                {stat.results.map((result, idx) => (
-                  <div key={idx} className="result-card">
-                    <p><span>Téma:</span> {topicNames[result.topicIndex] || 'Neznáma téma'}</p>
-                    <p><span>Dátum:</span> {new Date(result.date).toLocaleString()}</p>
-                    <p><span>Čas:</span> {result.time}</p>
-                    <p><span>Dokončené obrázky:</span> {result.imagesCompleted}</p>
-                    <p><span>Správne odpovede:</span> {result.correctAnswers}</p>
-                  </div>
-                ))}
-              </div>
-            </li>
+              {stat.results.map((result, idx) => (
+                <div key={idx} className="result-card" style={{ marginBottom: '1rem', background: '#f9f9f9', padding: '0.5rem', borderRadius: '4px' }}>
+                  <p><span>Téma:</span> {topicNames[result.topicIndex] || 'Neznáma téma'}</p>
+                  <p><span>Dátum:</span> {new Date(result.date).toLocaleString()}</p>
+                  <p><span>Čas:</span> {result.time}</p>
+                  <p><span>Dokončené obrázky:</span> {result.imagesCompleted}</p>
+                  <p><span>Správne odpovede:</span> {result.correctAnswers}</p>
+                </div>
+              ))}
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <p className="no-stats">Žiadna dostupná štatistika.</p>
       )}
