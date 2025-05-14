@@ -273,6 +273,14 @@
         "correctAnswers": 1,
         "topicIndex": 5,
         "correctImages": []
+      },
+      {
+        "date": "2025-05-14T15:47:55.299Z",
+        "time": "00:00:02",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 0,
+        "correctImages": []
       }
     ]
   },
@@ -392,6 +400,36 @@
         "correctAnswers": 0,
         "topicIndex": 0,
         "correctImages": []
+      },
+      {
+        "date": "2025-05-13T11:41:10.218Z",
+        "time": "00:00:06",
+        "imagesCompleted": 1,
+        "correctAnswers": 1,
+        "topicIndex": 5,
+        "correctImages": []
+      },
+      {
+        "date": "2025-05-13T11:41:58.205Z",
+        "time": "00:00:40",
+        "imagesCompleted": 10,
+        "correctAnswers": 1,
+        "topicIndex": 1,
+        "correctImages": [
+          "car.jpg"
+        ]
+      },
+      {
+        "date": "2025-05-13T11:46:12.089Z",
+        "time": "00:01:33",
+        "imagesCompleted": 10,
+        "correctAnswers": 3,
+        "topicIndex": 0,
+        "correctImages": [
+          "cat.jpg",
+          "dog.jpg",
+          "bird.jpg"
+        ]
       }
     ]
   },
@@ -428,5 +466,11 @@
         "correctImages": []
       }
     ]
+  },
+  {
+    "email": "test2@gmail.com",
+    "password": "$2a$10$KJgcEIfh.EYDksDI6EAkNOrZ.HC3ACj4m0IeE2NG7OkISZW8n.cWe",
+    "role": null,
+    "completedTopics": []
   }
 ]

@@ -33,7 +33,6 @@ export default function EditPage() {
     e.preventDefault();
     setError('');
 
-    // Валидация изображений
     for (let i = 0; i < images.length; i++) {
       const image = images[i];
       if (!image.sk || !image.uk || !image.imageFile) {
@@ -59,7 +58,7 @@ export default function EditPage() {
 
       if (response.ok) {
         alert('Téma bola úspešne pridaná!');
-        router.push('/topics'); // Перенаправление на страницу тем
+        router.push('/topics');
       } else {
         const data = await response.json();
         setError(data.message || 'Chyba pri ukladaní témy.');

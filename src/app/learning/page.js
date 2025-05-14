@@ -65,7 +65,33 @@ function LearningContent() {
     console.log(`Uložený postup pre tému: ${topicTitle}, obrázok: ${imageSrc}`);
   };
 
-  const nextImageWithRef = useCallback(() => {
+  const saveResult = useCallback(async () => {
+    if (user && !resultSaved) {
+      try {
+        const endTime = Date.now();
+        const timeTaken = endTime - startTimeRef.current;
+        const formattedTime = formatTime(timeTaken);
+
+        await fetch('/api/save-result', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: user.email,
+            time: formattedTime,
+            imagesCompleted: images.length,
+            correctAnswers: correctAnswersRef.current,
+            topicIndex: Number(topicIndex),
+            correctImages,
+          }),
+        });
+        setResultSaved(true);
+      } catch (error) {
+        console.error('Chyba pri ukladaní výsledku:', error);
+      }
+    }
+  }, [user, resultSaved, topicIndex, images.length, correctImages]);
+
+  const nextImageWithRef = useCallback(async () => {
     if (currentImageIndex < images.length - 1) {
       setCurrentImageIndex((prevIndex) => prevIndex + 1);
       setMessage('');
@@ -76,35 +102,20 @@ function LearningContent() {
       const formattedTime = formatTime(timeTaken);
 
       sessionStorage.setItem('correctImages', JSON.stringify(correctImages));
+      
+      try {
+        await saveResult();
+        console.log('Výsledok bol úspešne uložený');
+      } catch (error) {
+        console.error('Chyba pri ukladaní výsledku:', error);
+      }
 
       console.log('Prechod na stránku výsledkov s correctAnswersRef.current:', correctAnswersRef.current);
       router.push(
         `/result?time=${formattedTime}&images=${images.length}&correct=${correctAnswersRef.current}&topic=${topicIndex}`
       );
     }
-  }, [currentImageIndex, images.length, correctImages, router, topicIndex]);
-
-  const saveResult = useCallback(async () => {
-    if (user && !resultSaved) {
-      try {
-        await fetch('/api/save-result', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: user.email,
-            time: null,
-            imagesCompleted: 0,
-            correctAnswers: 0,
-            topicIndex: Number(topicIndex),
-            correctImages,
-          }),
-        });
-        setResultSaved(true);
-      } catch (error) {
-        console.error('Chyba pri ukladaní výsledku:', error);
-      }
-    }
-  }, [user, resultSaved, correctAnswers, progress, topicIndex, images.length, correctImages]);
+  }, [currentImageIndex, images.length, correctImages, router, topicIndex, saveResult]);
 
   const playSound = (lang) => {
     const text = lang === 'sk' ? img?.sk : img?.uk;
@@ -181,6 +192,36 @@ function LearningContent() {
     console.log('Rozpoznávanie reči zastavené');
   }, [stopAudioLevelMonitoring]);
 
+  const calculateWER = (reference, hypothesis) => {
+    const ref = reference.toLowerCase().trim();
+    const hyp = hypothesis.toLowerCase().trim();
+    
+    if (ref === hyp) return 0;
+    
+    const matrix = Array(ref.length + 1).fill().map(() => Array(hyp.length + 1).fill(0));
+    
+    for (let i = 0; i <= ref.length; i++) matrix[i][0] = i;
+    for (let j = 0; j <= hyp.length; j++) matrix[0][j] = j;
+    
+    for (let i = 1; i <= ref.length; i++) {
+      for (let j = 1; j <= hyp.length; j++) {
+        if (ref[i-1] === hyp[j-1]) {
+          matrix[i][j] = matrix[i-1][j-1];
+        } else {
+          matrix[i][j] = Math.min(
+            matrix[i-1][j-1] + 1,
+            matrix[i-1][j] + 1,
+            matrix[i][j-1] + 1
+          );
+        }
+      }
+    }
+    
+    const distance = matrix[ref.length][hyp.length];
+    const maxLength = Math.max(ref.length, hyp.length);
+    return distance / maxLength;
+  };
+
   const startRecognition = useCallback(() => {
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -197,7 +238,10 @@ function LearningContent() {
         setRecognizedText(transcript);
         console.log('Rozpoznané:', transcript);
 
-        if (transcript.trim() === img.sk.toLowerCase()) {
+        const wer = calculateWER(img.sk, transcript);
+        console.log('WER:', wer);
+
+        if (wer <= 0.3) {
           setMessage('Skvelé, vyslovili ste slovo správne!');
           saveProgress(topics[topicIndex].title, img.src);
           setCorrectAnswers((prev) => {
@@ -220,7 +264,7 @@ function LearningContent() {
             nextImageWithRef();
           }, 3000);
         } else {
-          setMessage('Skúste to znova.');
+          setMessage('Skúste to znova. WER: ' + (wer * 100).toFixed(1) + '%');
         }
       };
 

@@ -80,12 +80,13 @@ export default function ChooseRolePage() {
                     </label>
                 </div>
                 {selectedRole === 'student' && (
-                    <div>
+                    <div className="teacher-select-container">
                         <label>Vyberte učiteľa:</label>
                         <select
                             value={teacherEmail}
                             onChange={(e) => setTeacherEmail(e.target.value)}
                             required
+                            className="teacher-select"
                         >
                             <option value="">--Vyberte--</option>
                             {teachers.map((teacher) => (
@@ -99,6 +100,30 @@ export default function ChooseRolePage() {
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button type="submit">Uložiť</button>
             </form>
+            <style jsx>{`
+                .teacher-select-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin: 20px 0;
+                }
+
+                .teacher-select {
+                    width: 200px;
+                    padding: 8px;
+                    margin-top: 10px;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    background-color: white;
+                    font-size: 16px;
+                }
+
+                .teacher-select:focus {
+                    outline: none;
+                    border-color: #0070f3;
+                    box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+                }
+            `}</style>
         </div>
     );
 }
