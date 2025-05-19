@@ -27,10 +27,8 @@ export async function POST(request) {
         if (role === 'student') {
             users[userIndex].teacher = teacherEmail;
 
-            // Nájsť učiteľa a pridať študenta do jeho zoznamu
             const teacherIndex = users.findIndex(user => user.email.toLowerCase() === teacherEmail.toLowerCase() && user.role === 'teacher');
             if (teacherIndex !== -1) {
-                // Inicializovať pole students, ak chýba
                 if (!Array.isArray(users[teacherIndex].students)) {
                     users[teacherIndex].students = [];
                 }
@@ -45,7 +43,6 @@ export async function POST(request) {
                 });
             }
         } else if (role === 'teacher') {
-            // Pridávať používateľa do teachers.json, ak tam ešte nie je
             const teachersFilePath = path.join(process.cwd(), 'public', 'teachers.json');
             let teachers = [];
 

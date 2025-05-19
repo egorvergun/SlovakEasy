@@ -41,7 +41,7 @@ function LearningContent() {
       .then((data) => setTopics(data.topics))
       .catch((error) => {
         console.error('Chyba pri načítavaní tém:', error);
-        setMessage('Nedá sa načítať témy. Skúste to znova neskôr.');
+        setMessage('Nepodarilo sa načítať témy. Skúste to znova neskôr.');
       });
   }, []);
 
@@ -242,7 +242,7 @@ function LearningContent() {
         console.log('WER:', wer);
 
         if (wer <= 0.3) {
-          setMessage('Skvelé, vyslovili ste slovo správne!');
+          setMessage('Výborne, vyslovili ste slovo správne!');
           saveProgress(topics[topicIndex].title, img.src);
           setCorrectAnswers((prev) => {
             const newCount = prev + 1;
@@ -327,7 +327,7 @@ function LearningContent() {
           </div>
           <div className="image-container">
             {img.src ? (
-              <img src={`/${img.src}`} alt="Image" className="learning-image" />
+              <img src={`/${img.src}`} alt="Obrázok" className="learning-image" />
             ) : (
               <div className="loading">Čaká sa na obrázok...</div>
             )}
@@ -359,8 +359,8 @@ function LearningContent() {
           {showPopup && (
             <div className="popup">
               <div className="popup-content">
-                <img src="/runningDog.gif" alt="dog" className="popup-image" />
-                <p>Skvelé!</p>
+                <img src="/runningDog.gif" alt="pes" className="popup-image" />
+                <p>Výborne!</p>
               </div>
             </div>
           )}

@@ -1,15 +1,12 @@
-// app/api/register/route.js
-
 import fs from 'fs';
 import path from 'path';
-import bcrypt from 'bcryptjs'; // alebo 'bcryptjs' ak ho používate
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export async function POST(request) {
   try {
     const { email, password } = await request.json();
 
-    // Validácia
     if (!email || !password) {
       return new Response(JSON.stringify({ message: 'Email a heslo sú povinné.' }), {
         status: 400,
@@ -17,7 +14,6 @@ export async function POST(request) {
       });
     }
 
-    // Cesta k teachers.json
     const teachersFilePath = path.join(process.cwd(), 'public', 'teachers.json');
     let teachers = [];
 
@@ -26,10 +22,8 @@ export async function POST(request) {
       teachers = JSON.parse(teachersData);
     }
 
-    // Kontrola role
     const isTeacher = teachers.includes(email.toLowerCase());
 
-    // Cesta k users.json
     const usersFilePath = path.join(process.cwd(), 'public', 'users.json');
     let users = [];
 
@@ -38,7 +32,6 @@ export async function POST(request) {
       users = JSON.parse(usersData);
     }
 
-    // Kontrola existencie používateľa
     const userExists = users.find(user => user.email.toLowerCase() === email.toLowerCase());
     if (userExists) {
       return new Response(JSON.stringify({ message: 'Používateľ s týmto emailom už existuje.' }), {
@@ -47,22 +40,19 @@ export async function POST(request) {
       });
     }
 
-    // Hashovanie hesla
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Vytvorenie používateľa
     const newUser = {
       email: email.toLowerCase(),
       password: hashedPassword,
-      role: null, // Не присваиваем роль сразу
+      role: null,
       completedTopics: [],
     };    
 
     users.push(newUser);
     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
 
-    // Vytvorenie JWT tokenu
     const jwtSecret = process.env.JWT_SECRET || 'your-secure-secret-key';
     const token = jwt.sign(
       { email: newUser.email, role: newUser.role },

@@ -8,12 +8,11 @@ export const config = {
   },
 };
 
-// Функция для очистки названия темы
 function sanitizeTitle(title) {
   return title
-    .replace(/[<>:"/\\|?*]+/g, '') // Удаление запрещенных символов
-    .replace(/\s+/g, '_')          // Замена пробелов на подчеркивания
-    .toLowerCase();                // Приведение к нижнему регистру
+    .replace(/[<>:"/\\|?*]+/g, '') 
+    .replace(/\s+/g, '_')          
+    .toLowerCase();                
 }
 
 export async function POST(req) {
@@ -23,24 +22,25 @@ export async function POST(req) {
 
   const title = formData.get('title');
   if (!title) {
-    return NextResponse.json({ message: 'Нужно указать название темы.' }, { status: 400 });
+    return NextResponse.json({ message: 'Je potrebné zadať názov témy.' }, { status: 400 });
   }
 
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+  const sanitizedTitle = sanitizeTitle(title);
+  const topicDir = path.join(process.cwd(), 'public', 'images', sanitizedTitle);
+
   try {
-    await fs.mkdir(uploadDir, { recursive: true });
-    console.log('Адресар для загрузки обеспечен:', uploadDir);
+    await fs.mkdir(topicDir, { recursive: true });
+    console.log('Adresár pre tému vytvorený:', topicDir);
   } catch (err) {
-    console.error('Ошибка при создании директории для загрузки:', err);
-    return NextResponse.json({ message: 'Серверная ошибка.', status: 500 });
+    console.error('Chyba pri vytváraní adresára pre tému:', err);
+    return NextResponse.json({ message: 'Chyba servera.', status: 500 });
   }
 
   const images = [];
 
-  // Логирование всех полей формы для отладки
   for (let pair of formData.entries()) {
     const [key, value] = pair;
-    console.log(`Field: ${key}, Value:`, value);
+    console.log(`Pole: ${key}, Hodnota:`, value);
   }
 
   for (let pair of formData.entries()) {
@@ -56,39 +56,20 @@ export async function POST(req) {
     }
   }
 
-  // Удаление пустых элементов массива
   const filteredImages = images.filter(image => image.imageFile);
 
-  // Проверка наличия хотя бы одного изображения
   if (filteredImages.length === 0) {
-    return NextResponse.json({ message: 'Необходимо добавить хотя бы одно изображение.' }, { status: 400 });
+    return NextResponse.json({ message: 'Je potrebné pridať aspoň jeden obrázok.' }, { status: 400 });
   }
 
-  // Проверка всех изображений
   for (let i = 0; i < filteredImages.length; i++) {
     const image = filteredImages[i];
     if (!image.sk || !image.uk || !image.imageFile) {
       return NextResponse.json(
-        { message: `Заполните все поля в изображении ${i + 1}.` },
+        { message: `Vyplňte všetky polia v obrázku ${i + 1}.` },
         { status: 400 }
       );
     }
-  }
-
-  const sanitizedTitle = sanitizeTitle(title);
-  // Теперь сохраняем все изображения напрямую в папку uploads
-  const topicDir = uploadDir; // Без отдельной папки для темы
-
-  try {
-    // Убедитесь, что папка uploads существует
-    await fs.mkdir(topicDir, { recursive: true });
-    console.log('Адресар для загрузки обеспечен:', topicDir);
-  } catch (mkdirErr) {
-    console.error('Ошибка при создании директории для загрузки:', mkdirErr);
-    return NextResponse.json(
-      { message: 'Ошибка при создании директории для загрузки.' },
-      { status: 500 }
-    );
   }
 
   const imagesData = [];
@@ -96,7 +77,6 @@ export async function POST(req) {
   for (let i = 0; i < filteredImages.length; i++) {
     const { sk, uk, imageFile } = filteredImages[i];
     const ext = path.extname(imageFile.name);
-    // Генерируем уникальное имя файла, чтобы избежать конфликтов
     const newFilename = `${sanitizedTitle}_image_${Date.now()}_${i + 1}${ext}`;
     const newPath = path.join(topicDir, newFilename);
 
@@ -104,62 +84,58 @@ export async function POST(req) {
       const arrayBuffer = await imageFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       await fs.writeFile(newPath, buffer);
-      console.log(`Изображение сохранено: ${newPath}`);
+      console.log(`Obrázok uložený: ${newPath}`);
     } catch (err) {
-      console.error('Ошибка при сохранении изображения:', err);
+      console.error('Chyba pri ukladaní obrázka:', err);
       return NextResponse.json(
-        { message: 'Ошибка при сохранении изображения.' },
+        { message: 'Chyba pri ukladaní obrázka.' },
         { status: 500 }
       );
     }
 
     imagesData.push({
-      src: `uploads/${newFilename}`,
+      src: `images/${sanitizedTitle}/${newFilename}`,
       sk,
       uk,
     });
   }
 
-  // Чтение существующих данных
   const dataFilePath = path.join(process.cwd(), 'public', 'data.json');
   let data = { topics: [] };
 
   try {
     const jsonData = await fs.readFile(dataFilePath, 'utf8');
     data = JSON.parse(jsonData);
-    console.log('Существующие данные загружены.');
+    console.log('Existujúce dáta načítané.');
   } catch (readErr) {
     if (readErr.code !== 'ENOENT') {
-      console.error('Ошибка при чтении data.json:', readErr);
+      console.error('Chyba pri čítaní data.json:', readErr);
       return NextResponse.json(
-        { message: 'Ошибка при чтении данных.' },
+        { message: 'Chyba pri čítaní dát.' },
         { status: 500 }
       );
     }
-    // Если файл не существует, продолжаем с пустыми данными
   }
 
-  // Добавление новой темы с ключом "images" вместо "blocks"
   data.topics.push({
     title,
     images: imagesData,
   });
-  console.log('Новая тема добавлена:', title);
+  console.log('Nová téma pridaná:', title);
 
-  // Сохранение обновленных данных
   try {
     await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2), 'utf8');
-    console.log('Данные успешно сохранены в data.json');
+    console.log('Dáta úspešne uložené do data.json');
   } catch (writeErr) {
-    console.error('Ошибка при записи в data.json:', writeErr);
+    console.error('Chyba pri zápise do data.json:', writeErr);
     return NextResponse.json(
-      { message: 'Ошибка при сохранении данных.' },
+      { message: 'Chyba pri ukladaní dát.' },
       { status: 500 }
     );
   }
 
   return NextResponse.json(
-    { message: 'Тема успешно добавлена.' },
+    { message: 'Téma úspešne pridaná.' },
     { status: 200 }
   );
 }

@@ -4,52 +4,52 @@
       "title": "Živočíchy",
       "images": [
         {
-          "src": "cat.jpg",
+          "src": "images/animals/cat.jpg",
           "sk": "mačka",
           "uk": "кот"
         },
         {
-          "src": "dog.jpg",
+          "src": "images/animals/dog.jpg",
           "sk": "pes",
           "uk": "пёсиль"
         },
         {
-          "src": "bird.jpg",
+          "src": "images/animals/bird.jpg",
           "sk": "vták",
           "uk": "птах"
         },
         {
-          "src": "fish.jpg",
+          "src": "images/animals/fish.jpg",
           "sk": "ryba",
           "uk": "риба"
         },
         {
-          "src": "lion.jpg",
+          "src": "images/animals/lion.jpg",
           "sk": "lev",
           "uk": "лев"
         },
         {
-          "src": "tiger.jpg",
+          "src": "images/animals/tiger.jpg",
           "sk": "tiger",
           "uk": "тигр"
         },
         {
-          "src": "elephant.jpg",
+          "src": "images/animals/elephant.jpg",
           "sk": "slon",
           "uk": "слон"
         },
         {
-          "src": "monkey.jpg",
+          "src": "images/animals/monkey.jpg",
           "sk": "opica",
           "uk": "мавпа"
         },
         {
-          "src": "rabbit.jpg",
+          "src": "images/animals/rabbit.jpg",
           "sk": "zajac",
           "uk": "заяць"
         },
         {
-          "src": "bear.jpg",
+          "src": "images/animals/bear.jpg",
           "sk": "medveď",
           "uk": "ведмідь"
         }
@@ -59,52 +59,52 @@
       "title": "Doprava",
       "images": [
         {
-          "src": "car.jpg",
+          "src": "images/transport/car.jpg",
           "sk": "auto",
           "uk": "автомобіль"
         },
         {
-          "src": "bus.jpg",
+          "src": "images/transport/bus.jpg",
           "sk": "autobus",
           "uk": "автобус"
         },
         {
-          "src": "bicycle.jpg",
+          "src": "images/transport/bycycle.jpg",
           "sk": "bicykel",
           "uk": "велосипед"
         },
         {
-          "src": "train.jpg",
+          "src": "images/transport/train.jpg",
           "sk": "vlak",
           "uk": "поїзд"
         },
         {
-          "src": "plane.jpg",
+          "src": "images/transport/plane.jpg",
           "sk": "lietadlo",
           "uk": "літак"
         },
         {
-          "src": "boat.jpg",
+          "src": "images/transport/boat.jpg",
           "sk": "loď",
           "uk": "човен"
         },
         {
-          "src": "motorcycle.jpg",
+          "src": "images/transport/motorcycle.jpg",
           "sk": "motorka",
           "uk": "мотоцикл"
         },
         {
-          "src": "truck.jpg",
+          "src": "images/transport/truck.jpg",
           "sk": "nákladné auto",
           "uk": "вантажівка"
         },
         {
-          "src": "tram.jpg",
+          "src": "images/transport/tram.jpg",
           "sk": "električka",
           "uk": "трамвай"
         },
         {
-          "src": "subway.jpg",
+          "src": "images/transport/subway.jpg",
           "sk": "metro",
           "uk": "метро"
         }
@@ -272,16 +272,6 @@
           "src": "axe.jpg",
           "sk": "sekera",
           "uk": "сокира"
-        }
-      ]
-    },
-    {
-      "title": "test",
-      "images": [
-        {
-          "src": "uploads/test_image_1738620125900_1.jpg",
-          "sk": "test",
-          "uk": "test"
         }
       ]
     }

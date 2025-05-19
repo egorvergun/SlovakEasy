@@ -1,4 +1,3 @@
-// src/pages/api/topics.js
 import fs from 'fs';
 import path from 'path';
 

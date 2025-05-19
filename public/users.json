@@ -281,6 +281,38 @@
         "correctAnswers": 0,
         "topicIndex": 0,
         "correctImages": []
+      },
+      {
+        "date": "2025-05-14T17:16:25.392Z",
+        "time": "00:36:49",
+        "imagesCompleted": 10,
+        "correctAnswers": 4,
+        "topicIndex": 0,
+        "correctImages": [
+          "cat.jpg",
+          "dog.jpg",
+          "bird.jpg",
+          "fish.jpg"
+        ]
+      },
+      {
+        "date": "2025-05-19T20:50:44.160Z",
+        "time": "00:00:34",
+        "imagesCompleted": 10,
+        "correctAnswers": 2,
+        "topicIndex": 0,
+        "correctImages": [
+          "cat.jpg",
+          "dog.jpg"
+        ]
+      },
+      {
+        "date": "2025-05-19T20:50:52.559Z",
+        "time": "00:00:06",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 1,
+        "correctImages": []
       }
     ]
   },
@@ -470,6 +502,12 @@
   {
     "email": "test2@gmail.com",
     "password": "$2a$10$KJgcEIfh.EYDksDI6EAkNOrZ.HC3ACj4m0IeE2NG7OkISZW8n.cWe",
+    "role": null,
+    "completedTopics": []
+  },
+  {
+    "email": "test@gmail.com",
+    "password": "$2a$10$LiygV7ahVbrS4OiOXI27cew8zLUJ18V.d352rk1eoQKxpaFbiQDmm",
     "role": null,
     "completedTopics": []
   }
