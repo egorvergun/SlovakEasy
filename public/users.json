@@ -6,7 +6,8 @@
     "students": [
       "verhunenot@gmail.com",
       "dark4ik08@gmail.com",
-      "s@gmail.com"
+      "s@gmail.com",
+      "test3@gmail.com"
     ],
     "completedTopics": [],
     "results": [
@@ -313,6 +314,45 @@
         "correctAnswers": 0,
         "topicIndex": 1,
         "correctImages": []
+      },
+      {
+        "date": "2025-05-20T16:13:56.810Z",
+        "time": "01:59:23",
+        "imagesCompleted": 10,
+        "correctAnswers": 10,
+        "topicIndex": 0,
+        "correctImages": [
+          "images/animals/cat.jpg",
+          "images/animals/dog.jpg",
+          "images/animals/bird.jpg",
+          "images/animals/fish.jpg",
+          "images/animals/lion.jpg",
+          "images/animals/tiger.jpg",
+          "images/animals/elephant.jpg",
+          "images/animals/monkey.jpg",
+          "images/animals/rabbit.jpg"
+        ]
+      },
+      {
+        "date": "2025-05-20T21:48:04.630Z",
+        "time": "00:00:30",
+        "imagesCompleted": 2,
+        "correctAnswers": 2,
+        "topicIndex": 5,
+        "correctImages": [
+          "images/test/test_image_1747777628340_1.png"
+        ]
+      },
+      {
+        "date": "2025-05-21T07:06:20.408Z",
+        "time": "00:00:27",
+        "imagesCompleted": 10,
+        "correctAnswers": 2,
+        "topicIndex": 0,
+        "correctImages": [
+          "images/animals/cat.jpg",
+          "images/animals/dog.jpg"
+        ]
       }
     ]
   },
@@ -510,5 +550,39 @@
     "password": "$2a$10$LiygV7ahVbrS4OiOXI27cew8zLUJ18V.d352rk1eoQKxpaFbiQDmm",
     "role": null,
     "completedTopics": []
+  },
+  {
+    "email": "test3@gmail.com",
+    "password": "$2a$10$lCv1Dfb23jadL4vaFgTG.eCWri9CM6mZh1SVflOmCnxBtOVVcLErS",
+    "role": "student",
+    "completedTopics": [],
+    "teacher": "vergunegor@gmail.com",
+    "results": [
+      {
+        "date": "2025-05-20T21:43:55.580Z",
+        "time": "00:04:00",
+        "imagesCompleted": 10,
+        "correctAnswers": 5,
+        "topicIndex": 0,
+        "correctImages": [
+          "images/animals/cat.jpg",
+          "images/animals/dog.jpg",
+          "images/animals/bird.jpg",
+          "images/animals/elephant.jpg",
+          "images/animals/monkey.jpg"
+        ]
+      },
+      {
+        "date": "2025-05-20T21:45:04.965Z",
+        "time": "00:00:29",
+        "imagesCompleted": 10,
+        "correctAnswers": 2,
+        "topicIndex": 1,
+        "correctImages": [
+          "images/transport/car.jpg",
+          "images/transport/bus.jpg"
+        ]
+      }
+    ]
   }
 ]

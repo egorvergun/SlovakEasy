@@ -125,11 +125,13 @@ function LearningContent() {
       utterance.lang = 'sk-SK';
     } else {
       const voices = window.speechSynthesis.getVoices();
-      const ukVoice = voices.find((voice) => voice.lang === 'uk-UA' && voice.name.includes('Google'));
-      if (ukVoice) {
-        utterance.voice = ukVoice;
+      const russianVoice = voices.find((voice) => voice.lang === 'ru-RU');
+      if (russianVoice) {
+        utterance.voice = russianVoice;
+        utterance.lang = 'ru-RU';
+      } else {
+        utterance.lang = 'uk-UA';
       }
-      utterance.lang = 'uk-UA';
     }
     speechSynthesis.speak(utterance);
   };

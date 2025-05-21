@@ -56,7 +56,7 @@ This is a web application designed for learning vocabulary and language skills, 
 
 - **public/**  
   Publicly accessible files:
-  - `uploads/` – Directory for uploaded images.
+  - `images/` – Directory for uploaded images.
   - `data.json` – Data file containing topics and images for learning.
   - `users.json` – Contains user data (both teachers and students).
 
@@ -68,7 +68,7 @@ This is a web application designed for learning vocabulary and language skills, 
 1. **Clone the Repository:**
 
    ```bash
-   git clone <repository_URL>
+   git clone https://github.com/egorvergun/SlovakEasy
    cd bk_pr
 
 2. **Install Dependencies:**
