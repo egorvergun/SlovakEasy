@@ -353,6 +353,54 @@
           "images/animals/cat.jpg",
           "images/animals/dog.jpg"
         ]
+      },
+      {
+        "date": "2025-05-22T20:02:53.038Z",
+        "time": "00:00:07",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 4,
+        "correctImages": []
+      },
+      {
+        "date": "2025-05-22T20:03:47.345Z",
+        "time": "00:00:05",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 4,
+        "correctImages": []
+      },
+      {
+        "date": "2025-05-22T20:11:09.953Z",
+        "time": "00:00:04",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 2,
+        "correctImages": []
+      },
+      {
+        "date": "2025-05-22T20:11:21.326Z",
+        "time": "00:00:08",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 3,
+        "correctImages": []
+      },
+      {
+        "date": "2025-05-22T20:11:32.829Z",
+        "time": "00:00:09",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 4,
+        "correctImages": []
+      },
+      {
+        "date": "2025-05-22T20:12:24.961Z",
+        "time": "00:00:03",
+        "imagesCompleted": 10,
+        "correctAnswers": 0,
+        "topicIndex": 1,
+        "correctImages": []
       }
     ]
   },

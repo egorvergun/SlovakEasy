@@ -1,6 +1,3 @@
-/* Оптимизированный дизайн: объединил похожие стили, убрал дубли, поправил отступы */
-
-/* Базовые настройки */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,7 +9,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Можно добавить цвета для dark theme */
+    
   }
 }
 
@@ -30,13 +27,11 @@ body {
   padding: 20px;
 }
 
-/* Заголовки */
 h1, h2 {
   margin: 20px 0;
   font-weight: 300;
 }
 
-/* Общие контейнеры */
 #registration-container,
 #topic-selection,
 #learning-page,
@@ -50,12 +45,10 @@ h1, h2 {
   transition: all 0.3s ease;
 }
 
-/* Скрытый класс */
 .hidden {
   display: none;
 }
 
-/* Метки и поля */
 label {
   display: block;
   margin: 10px 0 5px;
@@ -70,7 +63,6 @@ select, input[type="text"], input[type="file"] {
   font-size: 16px;
 }
 
-/* Кнопки и ссылки */
 button,
 .add-topic-button,
 .start-learning-button,
@@ -110,7 +102,6 @@ button:hover,
   transform: translateY(-2px);
 }
 
-/* Фиксированная кнопка назад */
 .back-button {
   position: fixed;
   top: 20px;
@@ -118,7 +109,6 @@ button:hover,
   z-index: 1000;
 }
 
-/* Контейнер изображения */
 .image-container {
   width: 300px;
   height: 300px;
@@ -137,12 +127,10 @@ img:hover {
   transform: scale(1.05);
 }
 
-/* Группы кнопок */
 .button-group {
   margin: 10px;
 }
 
-/* Прогресс */
 .progress-bar {
   display: flex;
   gap: 5px;
@@ -163,7 +151,6 @@ img:hover {
   border: 2px solid #4caf50;
 }
 
-/* Ошибки, сообщения, попап */
 .error-message {
   color: red;
   margin-bottom: 15px;
@@ -199,7 +186,6 @@ img:hover {
   margin-bottom: 10px;
 }
 
-/* Управление звуком, распознаванием */
 .sound-button {
   border-radius: 8px;
 }
@@ -215,7 +201,6 @@ img:hover {
   color: #fff;
 }
 
-/* Полоса аудио */
 .audio-level {
   margin-top: 20px;
   width: 100%;
@@ -230,7 +215,6 @@ img:hover {
   background-color: #4caf50;
 }
 
-/* Страница обучения */
 .learning-container {
   width: auto;     
   max-width: 900px;
@@ -253,7 +237,6 @@ img:hover {
 }
 .next-image-button {}
 
-/* Страница тем */
 #topic-selection {
   display: flex;
   flex-direction: column;
@@ -282,7 +265,6 @@ img:hover {
   color: #999;
 }
 
-/* Страница результатов */
 .result-container {
   display: flex;
   flex-direction: column;
@@ -311,8 +293,6 @@ img:hover {
   text-align: center;
   margin-top: 50px;
 }
-
-/* Страница статов */
 
 .stats-container {
   display: flex;
@@ -345,7 +325,6 @@ img:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Страница тем (topics) */
 #topic-selection {
   display: flex;
   flex-direction: column;
@@ -353,7 +332,7 @@ img:hover {
   justify-content: center;
   gap: 20px;
   margin: 20px auto;
-  max-width: 800px; /* Подравниваем ширину, чтобы было аккуратно */
+  max-width: 800px; 
   padding: 20px;
 }
 .topic-list {
@@ -366,7 +345,6 @@ img:hover {
   text-align: center;
 }
 
-/* Вспомогательный класс для заголовков */
 .learning-title,
 .topics-title {
   font-size: 2rem;
@@ -375,7 +353,6 @@ img:hover {
   text-align: center;
 }
 
-/* Улучшенный дизайн для кнопок распознавания речи */
 .toggle-recognition-button {
   background-color: #4caf50;
   border: none;
@@ -398,7 +375,6 @@ img:hover {
   background-color: #45a049;
 }
 
-/* Улучшенный дизайн для добавления каждой новой картинки */
 .image-box {
   background-color: #f9f9f9;
   padding: 20px;
@@ -408,7 +384,6 @@ img:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Общие улучшения для кнопок */
 button.add-button,
 button.remove-button {
   background-color: #4caf50;
@@ -425,7 +400,6 @@ button.remove-button:hover {
   background-color: #45a049;
 }
 
-/* Обеспечение адаптивности и гармонии цвета */
 .form-container {
   max-width: 800px;
   margin: 0 auto;
@@ -441,28 +415,24 @@ button.remove-button:hover {
   gap: 20px;
 }
 
-/* Улучшенный дизайн для кнопок группы */
 .button-group {
   display: flex;
   gap: 20px;
   justify-content: center;
 }
 
-/* Стиль для сообщений об ошибках */
 .error-message {
   color: #ff5722;
   font-size: 1.2rem;
   text-align: center;
 }
 
-/* Стиль для заголовков */
 h2 {
   color: #4caf50;
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* Стиль для кнопки добавления изображения */
 .add-button {
   background-color: #2196f3;
 }
@@ -471,7 +441,6 @@ h2 {
   background-color: #1976d2;
 }
 
-/* Стиль для кнопки удаления изображения */
 .remove-button {
   background-color: #f44336;
 }
@@ -480,42 +449,37 @@ h2 {
   background-color: #d32f2f;
 }
 
-/* Центрирование формы */
 .form-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрирование по горизонтали */
-  justify-content: center; /* Растягиваем контейнер на всю высоту экрана */
+  align-items: center; 
+  justify-content: center; 
   padding: 20px;
   background-color: #ffffff;
 }
 
-/* Контент формы */
 .form-content {
   width: 100%;
-  max-width: 400px; /* Ограничиваем максимальную ширину формы */
+  max-width: 400px; 
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Группа формы */
 .form-group {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрирование содержимого группы */
+  align-items: center; 
   width: 100%;
 }
 
-/* Метки */
 .form-group label {
   width: 100%;
-  text-align: left; /* Выравнивание текста метки по левому краю */
+  text-align: left; 
   margin-bottom: 5px;
   font-weight: 500;
 }
 
-/* Поля ввода */
 .form-group input {
   width: 100%;
   padding: 10px;
@@ -524,14 +488,12 @@ h2 {
   font-size: 16px;
 }
 
-/* Сообщения об ошибках */
 .error-message {
   color: #ff5722;
   font-size: 1.2rem;
   text-align: center;
 }
 
-/* Обновлённые стили для страницы статов */
 .stats-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -586,7 +548,6 @@ h2 {
   border-bottom: none;
 }
 
-/* Если нужно обновить кнопку назад */
 .back-button {
   position: fixed;
   top: 20px;

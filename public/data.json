@@ -114,52 +114,52 @@
       "title": "Ovocie",
       "images": [
         {
-          "src": "apple.jpg",
+          "src": "images/ovocie/apple.jpg",
           "sk": "jablko",
           "uk": "яблуко"
         },
         {
-          "src": "banana.jpg",
+          "src": "images/ovocie/banana.jpg",
           "sk": "banán",
           "uk": "банан"
         },
         {
-          "src": "cherry.jpg",
+          "src": "images/ovocie/cherry.jpg",
           "sk": "čerešňa",
           "uk": "вишня"
         },
         {
-          "src": "grape.jpg",
+          "src": "images/ovocie/grape.jpg",
           "sk": "hrozno",
           "uk": "виноград"
         },
         {
-          "src": "lemon.jpg",
+          "src": "images/ovocie/lemon.jpg",
           "sk": "citrón",
           "uk": "лимон"
         },
         {
-          "src": "orange.jpg",
+          "src": "images/ovocie/orange.jpg",
           "sk": "pomaranč",
           "uk": "апельсин"
         },
         {
-          "src": "peach.jpg",
+          "src": "images/ovocie/peach.jpg",
           "sk": "broskyňa",
           "uk": "персик"
         },
         {
-          "src": "pear.jpg",
+          "src": "images/ovocie/pear.jpg",
           "sk": "hruška",
           "uk": "груша"
         },
         {
-          "src": "pineapple.jpg",
+          "src": "images/ovocie/pineapple.jpg",
           "sk": "ananás",
           "uk": "ананас"
         },
         {
-          "src": "watermelon.jpg",
+          "src": "images/ovocie/watermelon.jpg",
           "sk": "melón",
           "uk": "кавун"
         }
@@ -169,52 +169,52 @@
       "title": "Zelenina",
       "images": [
         {
-          "src": "carrot.jpg",
+          "src": "images/zelenina/carrot.jpg",
           "sk": "mrkva",
           "uk": "морква"
         },
         {
-          "src": "tomato.jpg",
+          "src": "images/zelenina/tomato.jpg",
           "sk": "paradajka",
           "uk": "помідор"
         },
         {
-          "src": "cucumber.jpg",
+          "src": "images/zelenina/cucumber.jpg",
           "sk": "uhorka",
           "uk": "огірок"
         },
         {
-          "src": "potato.jpg",
+          "src": "images/zelenina/potato.jpg",
           "sk": "zemiak",
           "uk": "картопля"
         },
         {
-          "src": "pepper.jpg",
+          "src": "images/zelenina/images/zelenina/pepper.jpg",
           "sk": "paprika",
           "uk": "перець"
         },
         {
-          "src": "onion.jpg",
+          "src": "images/zelenina/onion.jpg",
           "sk": "cibuľa",
           "uk": "цибуля"
         },
         {
-          "src": "garlic.jpg",
+          "src": "images/zelenina/garlic.jpg",
           "sk": "cesnak",
           "uk": "часник"
         },
         {
-          "src": "broccoli.jpg",
+          "src": "images/zelenina/broccoli.jpg",
           "sk": "brokolica",
           "uk": "броколі"
         },
         {
-          "src": "cabbage.jpg",
+          "src": "images/zelenina/cabbage.jpg",
           "sk": "kapusta",
           "uk": "капуста"
         },
         {
-          "src": "pumpkin.jpg",
+          "src": "images/zelenina/pumpkin.jpg",
           "sk": "tekvica",
           "uk": "гарбуз"
         }
@@ -224,52 +224,52 @@
       "title": "Nástroje",
       "images": [
         {
-          "src": "hammer.jpg",
+          "src": "images/nastroje/hammer.jpg",
           "sk": "kladivo",
           "uk": "молоток"
         },
         {
-          "src": "screwdriver.jpg",
+          "src": "images/nastroje/screwdriver.jpg",
           "sk": "skrutkovač",
           "uk": "викрутка"
         },
         {
-          "src": "wrench.jpg",
+          "src": "images/nastroje/wrench.jpg",
           "sk": "kľúč",
           "uk": "гайковий ключ"
         },
         {
-          "src": "pliers.jpg",
+          "src": "images/nastroje/pliers.jpg",
           "sk": "kliešte",
           "uk": "плоскогубці"
         },
         {
-          "src": "saw.jpg",
+          "src": "images/nastroje/saw.jpg",
           "sk": "píla",
           "uk": "пила"
         },
         {
-          "src": "drill.jpg",
+          "src": "images/nastroje/drill.jpg",
           "sk": "vŕtačka",
           "uk": "дриль"
         },
         {
-          "src": "tape_measure.jpg",
+          "src": "images/nastroje/tape_measure.jpg",
           "sk": "meracia páska",
           "uk": "рулетка"
         },
         {
-          "src": "level.jpg",
+          "src": "images/nastroje/level.jpg",
           "sk": "vodováha",
           "uk": "рівень"
         },
         {
-          "src": "chisel.jpg",
+          "src": "images/nastroje/chisel.jpg",
           "sk": "dlatko",
           "uk": "долото"
         },
         {
-          "src": "axe.jpg",
+          "src": "images/nastroje/axe.jpg",
           "sk": "sekera",
           "uk": "сокира"
         }
